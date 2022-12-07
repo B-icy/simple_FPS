@@ -3,7 +3,7 @@ extends KinematicBody
 ##########################################################
 # Constants
 
-export var speed = 20
+export var speed = 30
 export var gravity = 2.18
 export var damage = 5
 
@@ -119,6 +119,10 @@ func _fire():
 			
 			if target.is_in_group("enemy"):
 				target.take_damage(damage)
+	
+	# if trying to shoot and no ammo
+	elif $AnimationPlayer.current_animation == "" and Input.is_action_just_pressed("ui_fire"):
+		$AnimationPlayer.play("out_pistol")
 
 # play bullet effect, add particle effect to location
 func _bullet_effect(location):
@@ -130,5 +134,5 @@ func _bullet_effect(location):
 # reload logic
 func _reload():
 	# check if already doing another animation
-	if $AnimationPlayer.current_animation == "":
+	if $AnimationPlayer.current_animation == "" and ammo_count.text != "12":
 		$AnimationPlayer.play("reload_pistol")

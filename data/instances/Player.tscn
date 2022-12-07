@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://data/instances/player.gd" type="Script" id=1]
 [ext_resource path="res://data/models/usable/SM_Army_Pistol.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/2d_textures/crosshair.png" type="Texture" id=3]
 [ext_resource path="res://data/2d_textures/ammo.png" type="Texture" id=4]
 [ext_resource path="res://data/models/usable/SM_Magazine_For_Army_Pistol_Empty.tscn" type="PackedScene" id=5]
+[ext_resource path="res://data/sfx/gunshots/pistol/pistol_light.wav" type="AudioStream" id=6]
+[ext_resource path="res://data/sfx/gunshots/pistol/pistol_light_out.wav" type="AudioStream" id=7]
+[ext_resource path="res://data/sfx/gunshots/pistol/pistol_light_reload.wav" type="AudioStream" id=8]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 1.60179
@@ -71,6 +74,54 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Head/Audio/pistol_light_shot:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Head/Audio/pistol_light_out:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Head/Audio/pistol_light_reload:stream")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 8 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Head/Audio/pistol_light_reload:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "fire_pistol"
@@ -124,10 +175,37 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector3( 0, -90, 0 ), Vector3( 0, -90, -80 ), Vector3( 0, -90, 0 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Head/Audio/pistol_light_shot:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "out_pistol"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Audio/pistol_light_out:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "reload_pistol"
-length = 0.9
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/SM_Army_Pistol:translation")
@@ -136,7 +214,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.25, 0.5, 0.55, 0.6, 0.65, 0.9 ),
+"times": PoolRealArray( 0, 0.1, 0.25, 0.55, 0.6, 0.65, 0.7, 0.95 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0.5, 0.5, 0 ), Vector3( 0.601284, 0.63975, 0.0124311 ), Vector3( 0.462897, 0.466334, 0.0103593 ), Vector3( 0.550642, 0.678382, 0.00621557 ), Vector3( 0.550642, 0.678382, 0.00621557 ), Vector3( 0.550642, 0.678382, 0.00621557 ), Vector3( 0.550642, 0.678382, 0.00621557 ), Vector3( 0.5, 0.5, 0 ) ]
@@ -148,7 +226,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.25, 0.5, 0.55, 0.6, 0.65, 0.9 ),
+"times": PoolRealArray( 0, 0.1, 0.25, 0.55, 0.6, 0.65, 0.7, 0.95 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, -90, 0 ), Vector3( -17.6923, -62.5322, -27.7516 ), Vector3( -17.6923, -62.5322, -27.7516 ), Vector3( -7.5, -50, -15 ), Vector3( -7.5, -50, -15 ), Vector3( -7.5, -50, -15 ), Vector3( -7.5, -50, -15 ), Vector3( 0, -90, 0 ) ]
@@ -160,7 +238,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.25, 0.5, 0.65, 0.9 ),
+"times": PoolRealArray( 0, 0.1, 0.25, 0.55, 0.7, 0.95 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0.5, 0.5, 0 ), Vector3( 0.601, 0.64, 0.012 ), Vector3( 0.463, 0.466, 0.01 ), Vector3( 0.359687, 0.0348974, -0.0174707 ), Vector3( 0.551, 0.678, 0.006 ), Vector3( 0.5, 0.5, 0 ) ]
@@ -172,7 +250,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.25, 0.5, 0.65, 0.9 ),
+"times": PoolRealArray( 0, 0.1, 0.25, 0.55, 0.7, 0.95 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, -90, 0 ), Vector3( -17.692, -62.532, -27.752 ), Vector3( -17.692, -62.532, -27.752 ), Vector3( -17.692, -62.532, -27.752 ), Vector3( -7.5, -50, -15 ), Vector3( 0, -90, 0 ) ]
@@ -184,7 +262,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.35, 0.5 ),
+"times": PoolRealArray( 0, 0.35, 0.55 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -196,10 +274,22 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.9 ),
+"times": PoolRealArray( 0.95 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ "12" ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Head/Audio/pistol_light_reload:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [node name="Player" type="KinematicBody"]
@@ -226,6 +316,7 @@ texture = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.93954 )
 enabled = true
 cast_to = Vector3( 0, 0, -200 )
+collision_mask = 2
 
 [node name="Ammo_Icon" type="TextureRect" parent="Head/Camera"]
 margin_left = 29.0
@@ -255,7 +346,21 @@ transform = Transform( -8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0.5, 0.
 [node name="SM_Magazine_For_Army_Pistol_Empty" parent="Head" instance=ExtResource( 5 )]
 transform = Transform( -8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0.5, 0.5, 0 )
 
+[node name="Audio" type="Spatial" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72726, -0.511658 )
+
+[node name="pistol_light_shot" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 6 )
+
+[node name="pistol_light_out" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 7 )
+
+[node name="pistol_light_reload" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 8 )
+unit_db = 5.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/fire_pistol = SubResource( 2 )
+anims/out_pistol = SubResource( 5 )
 anims/reload_pistol = SubResource( 4 )
