@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://data/instances/MirrorMesh.gd" type="Script" id=1]
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 16, 9 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D refl_tx;
+void fragment() {
+	ALBEDO = texture(refl_tx, vec2(1.0 - SCREEN_UV.x, SCREEN_UV.y)).rgb;
+}"
+
+[sub_resource type="ViewportTexture" id=4]
+viewport_path = NodePath("MirrorMesh/Viewport")
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/refl_tx = SubResource( 4 )
+
+[node name="Mirror" type="Spatial"]
+
+[node name="MirrorMesh" type="MeshInstance" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+script = ExtResource( 1 )
+
+[node name="DummyCam" type="Spatial" parent="MirrorMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )
+
+[node name="Viewport" type="Viewport" parent="MirrorMesh"]
+size = Vector2( 1920, 1080 )
+
+[node name="Camera" type="Camera" parent="MirrorMesh/Viewport"]
+transform = Transform( 1, 0, 0, 0, 0.992943, 0.118595, 0, -0.118595, 0.992943, 0, 0, 0 )
+far = 1000.0

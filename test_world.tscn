@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://data/instances/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/instances/enemies/SM_Workbench.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://data/models/Polygon-Lite Survival Collection/Models/SM_Barrel_Open_01.fbx" type="PackedScene" id=4]
 [ext_resource path="res://data/models/usable/SM_Barrel_Open_01.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/instances/enemies/soldier2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://data/instances/Mirror.tscn" type="PackedScene" id=7]
+[ext_resource path="res://data/models/usable/Meat_01.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -21,7 +23,24 @@ data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.90366, 0 )
 
+[node name="enemies" type="Node" parent="."]
+
+[node name="soldier2" parent="enemies" instance=ExtResource( 6 )]
+transform = Transform( -0.896265, 0, -0.0819135, 0, 0.9, 0, 0.0819135, 0, -0.896265, 0, 2.7429, -15.0292 )
+
+[node name="soldier3" parent="enemies" instance=ExtResource( 6 )]
+transform = Transform( -0.388991, 0, -0.811595, 0, 0.9, 0, 0.811595, 0, -0.388991, -14.3179, 2.7429, -3.99868 )
+
+[node name="soldier4" parent="enemies" instance=ExtResource( 6 )]
+transform = Transform( -0.388991, 0, -0.811595, 0, 0.9, 0, 0.811595, 0, -0.388991, 8.07757, 2.7429, -27.4753 )
+
+[node name="soldier5" parent="enemies" instance=ExtResource( 6 )]
+transform = Transform( -0.894856, 0, -0.0960906, 0, 0.9, 0, 0.0960906, 0, -0.894856, -19.7049, 2.7429, -23.6078 )
+
 [node name="objects" type="Node" parent="."]
+
+[node name="Meat_01" parent="objects" instance=ExtResource( 9 )]
+transform = Transform( 0.407203, -0.882662, -0.234722, 0.625324, 0.456744, -0.632736, 0.665699, 0.110874, 0.737937, -0.691675, 21.1726, -17.9135 )
 
 [node name="SM_Workbench" parent="objects" instance=ExtResource( 2 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -10.4324, 0, -20.1112 )
@@ -36,24 +55,16 @@ skeleton = NodePath("../..")
 material/0 = SubResource( 3 )
 
 [node name="StaticBody" type="StaticBody" parent="objects/ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.220165, 0 )
 collision_layer = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="objects/ground/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 5, 0, 0, 0, 1, 0, -4.00409, 0 )
 shape = SubResource( 2 )
 
 [node name="SM_Barrel_Open_01" parent="objects/ground" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216823, 1, -0.253588 )
 
-[node name="enemies" type="Node" parent="objects"]
-
-[node name="soldier2" parent="objects/enemies" instance=ExtResource( 6 )]
-transform = Transform( -0.896265, 0, -0.0819135, 0, 0.9, 0, 0.0819135, 0, -0.896265, 0, 2.7429, -15.0292 )
-
-[node name="soldier3" parent="objects/enemies" instance=ExtResource( 6 )]
-transform = Transform( -0.388991, 0, -0.811595, 0, 0.9, 0, 0.811595, 0, -0.388991, -14.3179, 2.7429, -3.99868 )
-
-[node name="soldier4" parent="objects/enemies" instance=ExtResource( 6 )]
-transform = Transform( -0.388991, 0, -0.811595, 0, 0.9, 0, 0.811595, 0, -0.388991, 8.07757, 2.7429, -27.4753 )
-
-[node name="soldier5" parent="objects/enemies" instance=ExtResource( 6 )]
-transform = Transform( -0.894856, 0, -0.0960906, 0, 0.9, 0, 0.0960906, 0, -0.894856, -19.7049, 2.7429, -23.6078 )
+[node name="Mirror" parent="objects" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 5.07601, -42.8594 )
+visible = false

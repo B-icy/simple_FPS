@@ -1,0 +1,144 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://data/models/Weapons/AK47.gltf" type="PackedScene" id=1]
+[ext_resource path="res://data/models/usable/AK47.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AKMag:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.106087, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AKMag:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AKMag:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AKBody:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.959061, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AKBody:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 1.22415 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "reload_ak"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("AKMag:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.25, 0.35, 0.45, 0.6, 0.7, 0.75, 0.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.106087, 0 ), Vector3( 0.5, 0.9, 0.7 ), Vector3( 0.948388, 0.253434, 0.7 ), Vector3( 0.948388, -1.77302, -2.12487 ), Vector3( 1.32091, -1.63387, -3.95459 ), Vector3( 0.5, -0.667499, -0.0347319 ), Vector3( 0.5, 0.9, 0.7 ), Vector3( 0.5, 0.9, 0.7 ), Vector3( 0, 0.106087, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AKMag:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.35, 0.45, 0.6, 0.7, 0.75, 0.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 19, 0, 0 ), Vector3( -21.719, 34.446, 0 ), Vector3( 19, 0, 0 ), Vector3( 19, 0, 0 ), Vector3( 19, 0, 0 ), Vector3( 19, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AKMag:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.25, 0.35, 0.45 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AKBody:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.7, 0.75, 0.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.959061, 0 ), Vector3( 0, 1.66406, 0.884117 ), Vector3( 0, 1.66406, 0.884117 ), Vector3( 0, 1.66406, 0.884117 ), Vector3( 0, 0.959061, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AKBody:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2, 0.7, 0.75, 0.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 1.22415 ), Vector3( 17.701, 1.21514e-08, 6.60315 ), Vector3( 17.701, 1.21514e-08, 6.60315 ), Vector3( 17.701, 1.21514e-08, 6.60315 ), Vector3( 0, 0, 1.22415 ) ]
+}
+
+[node name="AK47" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="AKMag" parent="." index="0"]
+transform = Transform( 0.284872, 0, 0, 0, 0.284872, 0, 0, 0, 0.284872, 0, 0.106087, 0 )
+
+[node name="AKBody" parent="." index="1"]
+transform = Transform( 0.608185, -0.00364196, 0, 0.0129961, 0.170434, 0, 0, 0, 0.169246, 0, 0.959061, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+anims/RESET = SubResource( 1 )
+anims/reload_ak = SubResource( 2 )

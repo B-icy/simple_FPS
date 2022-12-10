@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://data/instances/player.gd" type="Script" id=1]
+[ext_resource path="res://data/instances/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/models/usable/SM_Army_Pistol.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/2d_textures/crosshair.png" type="Texture" id=3]
 [ext_resource path="res://data/2d_textures/ammo.png" type="Texture" id=4]
@@ -8,6 +8,12 @@
 [ext_resource path="res://data/sfx/gunshots/pistol/pistol_light.wav" type="AudioStream" id=6]
 [ext_resource path="res://data/sfx/gunshots/pistol/pistol_light_out.wav" type="AudioStream" id=7]
 [ext_resource path="res://data/sfx/gunshots/pistol/pistol_light_reload.wav" type="AudioStream" id=8]
+[ext_resource path="res://data/instances/MultiplayerChar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://data/instances/PlayerCam.gd" type="Script" id=10]
+[ext_resource path="res://data/models/usable/AK47.tscn" type="PackedScene" id=11]
+[ext_resource path="res://data/sfx/gunshots/ak47/ak47.wav" type="AudioStream" id=12]
+[ext_resource path="res://data/sfx/gunshots/ak47/ak47_reload.wav" type="AudioStream" id=13]
+[ext_resource path="res://data/2d_textures/ammo_ak.png" type="Texture" id=14]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 1.60179
@@ -15,7 +21,7 @@ height = 1.60179
 [sub_resource type="Animation" id=3]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head/SM_Army_Pistol:translation")
+tracks/0/path = NodePath("Head/Weapons/Pistol/SM_Army_Pistol:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -27,7 +33,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.5, 0.5, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head/SM_Army_Pistol:rotation_degrees")
+tracks/1/path = NodePath("Head/Weapons/Pistol/SM_Army_Pistol:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -39,7 +45,7 @@ tracks/1/keys = {
 "values": [ Vector3( 0, -90, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Head/SM_Magazine_For_Army_Pistol_Empty:translation")
+tracks/2/path = NodePath("Head/Weapons/Pistol/SM_Magazine_For_Army_Pistol_Empty:translation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -51,7 +57,7 @@ tracks/2/keys = {
 "values": [ Vector3( 0.5, 0.5, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Head/SM_Magazine_For_Army_Pistol_Empty:rotation_degrees")
+tracks/3/path = NodePath("Head/Weapons/Pistol/SM_Magazine_For_Army_Pistol_Empty:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -63,7 +69,7 @@ tracks/3/keys = {
 "values": [ Vector3( 0, -90, 0 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Head/SM_Magazine_For_Army_Pistol_Empty:visible")
+tracks/4/path = NodePath("Head/Weapons/Pistol/SM_Magazine_For_Army_Pistol_Empty:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -122,13 +128,90 @@ tracks/8/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("Head/Weapons/AK47:translation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, 0.5, -0.3 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Head/Audio/ak47_shot:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Head/Audio/ak47_reload:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Head/Camera/Ammo_Count:text")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "12" ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "fire_ak"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Weapons/AK47:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, 0.5, -0.3 ), Vector3( 0.5, 0.5, -0.2 ), Vector3( 0.5, 0.5, -0.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Audio/ak47_shot:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "fire_pistol"
-length = 0.2
+length = 0.15
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head/SM_Army_Pistol:translation")
+tracks/0/path = NodePath("Head/Weapons/Pistol/SM_Army_Pistol:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -140,7 +223,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.5, 0.5, 0 ), Vector3( 0.5, 0.5, 0.05 ), Vector3( 0.5, 0.5, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head/SM_Army_Pistol:rotation_degrees")
+tracks/1/path = NodePath("Head/Weapons/Pistol/SM_Army_Pistol:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -152,7 +235,7 @@ tracks/1/keys = {
 "values": [ Vector3( 0, -90, 0 ), Vector3( 0, -90, -80 ), Vector3( 0, -90, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Head/SM_Magazine_For_Army_Pistol_Empty:translation")
+tracks/2/path = NodePath("Head/Weapons/Pistol/SM_Magazine_For_Army_Pistol_Empty:translation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -164,7 +247,7 @@ tracks/2/keys = {
 "values": [ Vector3( 0.5, 0.5, 0 ), Vector3( 0.5, 0.5, 0.05 ), Vector3( 0.5, 0.5, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Head/SM_Magazine_For_Army_Pistol_Empty:rotation_degrees")
+tracks/3/path = NodePath("Head/Weapons/Pistol/SM_Magazine_For_Army_Pistol_Empty:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -204,11 +287,56 @@ tracks/0/keys = {
 "values": [ true ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "reload_ak"
+length = 0.8
+tracks/0/type = "method"
+tracks/0/path = NodePath("Head/Weapons/AK47")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_reload"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Audio/ak47_reload:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_reload_anim"
+} ]
+}
+
 [sub_resource type="Animation" id=4]
 resource_name = "reload_pistol"
+length = 0.95
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Head/SM_Army_Pistol:translation")
+tracks/0/path = NodePath("Head/Weapons/Pistol/SM_Army_Pistol:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -220,7 +348,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.5, 0.5, 0 ), Vector3( 0.601284, 0.63975, 0.0124311 ), Vector3( 0.462897, 0.466334, 0.0103593 ), Vector3( 0.550642, 0.678382, 0.00621557 ), Vector3( 0.550642, 0.678382, 0.00621557 ), Vector3( 0.550642, 0.678382, 0.00621557 ), Vector3( 0.550642, 0.678382, 0.00621557 ), Vector3( 0.5, 0.5, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Head/SM_Army_Pistol:rotation_degrees")
+tracks/1/path = NodePath("Head/Weapons/Pistol/SM_Army_Pistol:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -232,31 +360,31 @@ tracks/1/keys = {
 "values": [ Vector3( 0, -90, 0 ), Vector3( -17.6923, -62.5322, -27.7516 ), Vector3( -17.6923, -62.5322, -27.7516 ), Vector3( -7.5, -50, -15 ), Vector3( -7.5, -50, -15 ), Vector3( -7.5, -50, -15 ), Vector3( -7.5, -50, -15 ), Vector3( 0, -90, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Head/SM_Magazine_For_Army_Pistol_Empty:translation")
+tracks/2/path = NodePath("Head/Weapons/Pistol/SM_Magazine_For_Army_Pistol_Empty:translation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.25, 0.55, 0.7, 0.95 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.25, 0.35, 0.55, 0.7, 0.95 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.5, 0.5, 0 ), Vector3( 0.601, 0.64, 0.012 ), Vector3( 0.463, 0.466, 0.01 ), Vector3( 0.359687, 0.0348974, -0.0174707 ), Vector3( 0.551, 0.678, 0.006 ), Vector3( 0.5, 0.5, 0 ) ]
+"values": [ Vector3( 0.5, 0.5, 0 ), Vector3( 0.601, 0.64, 0.012 ), Vector3( 0.463, 0.466, 0.01 ), Vector3( 0.27386, -1.19003, -0.00291967 ), Vector3( 0.480651, 0.0348974, -0.0174707 ), Vector3( 0.551, 0.678, 0.006 ), Vector3( 0.5, 0.5, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Head/SM_Magazine_For_Army_Pistol_Empty:rotation_degrees")
+tracks/3/path = NodePath("Head/Weapons/Pistol/SM_Magazine_For_Army_Pistol_Empty:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.25, 0.55, 0.7, 0.95 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.25, 0.35, 0.55, 0.7, 0.95 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, -90, 0 ), Vector3( -17.692, -62.532, -27.752 ), Vector3( -17.692, -62.532, -27.752 ), Vector3( -17.692, -62.532, -27.752 ), Vector3( -7.5, -50, -15 ), Vector3( 0, -90, 0 ) ]
+"values": [ Vector3( 0, -90, 0 ), Vector3( -17.692, -62.532, -27.752 ), Vector3( -17.692, -62.532, -27.752 ), Vector3( 7.96852, -57.7022, 34.2382 ), Vector3( -3.92319, -63.8661, -20.697 ), Vector3( -7.5, -50, -15 ), Vector3( 0, -90, 0 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Head/SM_Magazine_For_Army_Pistol_Empty:visible")
+tracks/4/path = NodePath("Head/Weapons/Pistol/SM_Magazine_For_Army_Pistol_Empty:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -268,42 +396,51 @@ tracks/4/keys = {
 "values": [ true, false, true ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Head/Camera/Ammo_Count:text")
+tracks/5/path = NodePath("Head/Audio/pistol_light_reload:playing")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.95 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "12" ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Head/Audio/pistol_light_reload:playing")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
 }
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.95 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_reload_anim"
+} ]
+}
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
+speed = 40
+gravity = 1.8
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Head" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185935, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554138, -1.25702 )
+
+[node name="multiplayer_char" parent="Head" instance=ExtResource( 9 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -2.23941, 1.41679 )
 
 [node name="Camera" type="Camera" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0.64 )
+far = 1000.0
+script = ExtResource( 10 )
 
 [node name="Crosshair" type="TextureRect" parent="Head/Camera"]
 margin_left = 1000.0
@@ -313,38 +450,82 @@ margin_bottom = 600.0
 texture = ExtResource( 3 )
 
 [node name="RayCast" type="RayCast" parent="Head/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.93954 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.599181 )
 enabled = true
 cast_to = Vector3( 0, 0, -200 )
 collision_mask = 2
 
 [node name="Ammo_Icon" type="TextureRect" parent="Head/Camera"]
-margin_left = 29.0
-margin_top = 1034.0
-margin_right = 464.0
-margin_bottom = 1834.0
+margin_left = 21.0
+margin_top = 981.0
+margin_right = 821.0
+margin_bottom = 1781.0
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 4 )
 stretch_mode = 1
 
+[node name="Ammo_Icon_AK" type="TextureRect" parent="Head/Camera"]
+visible = false
+margin_left = 7.0
+margin_top = 981.0
+margin_right = 807.0
+margin_bottom = 1781.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 14 )
+stretch_mode = 1
+
 [node name="Ammo_Count" type="Label" parent="Head/Camera"]
-margin_left = 87.0
-margin_top = 1053.0
-margin_right = 133.0
-margin_bottom = 1070.0
+margin_left = 7.0
+margin_top = 1002.0
+margin_right = 53.0
+margin_bottom = 1019.0
 rect_scale = Vector2( 3, 3 )
 custom_colors/font_color = Color( 0.807843, 0.796078, 0.0980392, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "12"
+align = 2
+
+[node name="TotalAmmo" type="Label" parent="Head/Camera"]
+margin_left = 153.0
+margin_top = 1002.0
+margin_right = 199.0
+margin_bottom = 1019.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0.807843, 0.796078, 0.0980392, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "/ 3000"
+
+[node name="Health" type="Label" parent="Head/Camera"]
+margin_left = 15.0
+margin_top = 1078.0
+margin_right = 61.0
+margin_bottom = 1095.0
+rect_scale = Vector2( 4, 4 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "100"
 
 [node name="FPS" type="Label" parent="Head/Camera"]
 margin_right = 100.0
 margin_bottom = 100.0
 
-[node name="SM_Army_Pistol" parent="Head" instance=ExtResource( 2 )]
+[node name="Weapons" type="Spatial" parent="Head"]
+
+[node name="Pistol" type="Spatial" parent="Head/Weapons"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 7.45058e-09, 0, 1, -5.96046e-08, -5.96046e-08, 0 )
+
+[node name="SM_Army_Pistol" parent="Head/Weapons/Pistol" instance=ExtResource( 2 )]
 transform = Transform( -8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0.5, 0.5, 0 )
 
-[node name="SM_Magazine_For_Army_Pistol_Empty" parent="Head" instance=ExtResource( 5 )]
+[node name="SM_Magazine_For_Army_Pistol_Empty" parent="Head/Weapons/Pistol" instance=ExtResource( 5 )]
 transform = Transform( -8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0.5, 0.5, 0 )
+
+[node name="AK47" parent="Head/Weapons" instance=ExtResource( 11 )]
+transform = Transform( 0.0174312, 0, 0.199239, 0, 0.2, 0, -0.199239, 0, 0.0174312, 0.5, 0.5, -0.3 )
+visible = false
 
 [node name="Audio" type="Spatial" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72726, -0.511658 )
@@ -359,8 +540,16 @@ stream = ExtResource( 7 )
 stream = ExtResource( 8 )
 unit_db = 5.0
 
+[node name="ak47_shot" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 12 )
+
+[node name="ak47_reload" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 13 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
+anims/fire_ak = SubResource( 6 )
 anims/fire_pistol = SubResource( 2 )
 anims/out_pistol = SubResource( 5 )
+anims/reload_ak = SubResource( 7 )
 anims/reload_pistol = SubResource( 4 )

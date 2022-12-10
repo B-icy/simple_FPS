@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ak47.wav-e62eaab2df684391470c34792d5b6429.sample"
+
+[deps]
+
+source_file="res://data/sfx/gunshots/ak47/ak47.wav"
+dest_files=[ "res://.import/ak47.wav-e62eaab2df684391470c34792d5b6429.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
