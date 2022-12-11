@@ -20,7 +20,7 @@ var _jump_amount = 0
 var _can_double_jump = false
 var _weapon_count = 2
 var _current_ammo = [12, 25]
-var _total_ammo = [3000, 50]
+var _total_ammo = [100, 300]
 
 onready var raycast = $Head/Camera/RayCast
 onready var ammo_count = $Head/Camera/Ammo_Count
@@ -95,6 +95,10 @@ func _move():
 	velocity.z = direction.z * speed
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
+	# reset double jump if on floor
+	if is_on_floor():
+		_can_double_jump = true
+	
 	# handle jump seperately
 	if Input.is_action_pressed("ui_accept"):
 		_jump()
@@ -103,7 +107,6 @@ func _move():
 # hand jump movement
 func _jump():
 	if is_on_floor():
-		_can_double_jump = true
 		_jump_amount = jump_strength
 		move_and_slide(jump_strength * Vector3.UP)
 	elif _can_double_jump and Input.is_action_just_pressed("ui_accept"):
@@ -179,9 +182,9 @@ func _reload():
 
 # called by animation player
 func _reload_anim():
-	#var ammo_difference = _total_ammo[current_weapon] - min(ammo_holds[current_weapon], _total_ammo[current_weapon])
-	_current_ammo[current_weapon] = min(ammo_holds[current_weapon], _total_ammo[current_weapon])
-	_total_ammo[current_weapon] -= min(ammo_holds[current_weapon], _total_ammo[current_weapon])
+	var ammo_difference = min(_total_ammo[current_weapon] - (ammo_holds[current_weapon] - _current_ammo[current_weapon]), _total_ammo[current_weapon])
+	_current_ammo[current_weapon] = min(ammo_holds[current_weapon], _total_ammo[current_weapon] + _current_ammo[current_weapon])
+	_total_ammo[current_weapon] = max(ammo_difference, 0)
 	_update_ammo_labels()
 
 # taking damage
@@ -207,3 +210,10 @@ func _change_weapon(direction):
 	
 	_update_ammo_labels()
 	
+
+# pickup other items
+func _on_Area_area_entered(area):
+	if area.is_in_group("akammo"):
+		_total_ammo[1] += 25
+		_update_ammo_labels()
+		area.get_parent().get_parent().queue_free()

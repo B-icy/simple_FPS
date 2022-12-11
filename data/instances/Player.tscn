@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://data/instances/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/models/usable/SM_Army_Pistol.tscn" type="PackedScene" id=2]
@@ -422,6 +422,10 @@ tracks/6/keys = {
 } ]
 }
 
+[sub_resource type="CylinderShape" id=8]
+height = 5.0
+radius = 1.5
+
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
 speed = 40
@@ -512,6 +516,14 @@ text = "100"
 margin_right = 100.0
 margin_bottom = 100.0
 
+[node name="Intro" type="Label" parent="Head/Camera"]
+margin_left = 162.0
+margin_top = 788.0
+margin_right = 354.0
+margin_bottom = 888.0
+rect_scale = Vector2( 3, 3 )
+text = "Press E / Q to switch weapons"
+
 [node name="Weapons" type="Spatial" parent="Head"]
 
 [node name="Pistol" type="Spatial" parent="Head/Weapons"]
@@ -553,3 +565,13 @@ anims/fire_pistol = SubResource( 2 )
 anims/out_pistol = SubResource( 5 )
 anims/reload_ak = SubResource( 7 )
 anims/reload_pistol = SubResource( 4 )
+
+[node name="Area" type="Area" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
+shape = SubResource( 8 )
+
+[connection signal="area_entered" from="Area" to="." method="_on_Area_area_entered"]

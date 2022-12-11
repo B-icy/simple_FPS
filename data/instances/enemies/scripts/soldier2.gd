@@ -12,6 +12,8 @@ var heading = 0
 
 export var move = true
 
+onready var akammo = preload("res://data/instances/pickups/ak_ammo.tscn")
+
 ##########################################################
 # Functions
 
@@ -23,13 +25,6 @@ func _physics_process(delta):
 	# check if char should be moving
 	if move:
 		_move(delta)
-
-# reduce health
-func take_damage(damage):
-	health -= damage
-	
-	if health <= 0:
-		queue_free()
 
 # move script
 func _move(delta):

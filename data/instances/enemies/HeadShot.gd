@@ -12,4 +12,7 @@ func take_damage(damage):
 	$"../../../../HeadShotSFX".play()
 	
 	if parent.health <= 0:
+		var instance = akammo.instance()
+		instance.global_transform.origin = parent.global_transform.origin
+		get_tree().get_root().add_child(instance)
 		parent.queue_free()
