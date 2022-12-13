@@ -1,7 +1,45 @@
-[gd_resource type="SphereMesh" format=2]
+[gd_resource type="SphereMesh" load_steps=4 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode blend_add, depth_draw_never, depth_test_disable;
+
+uniform vec4 outline_color : hint_color;
+uniform float color_intensity = 1.0;
+uniform float outline_sharpness = 2.0;
+
+uniform vec4 stencil_color : hint_color;
+uniform sampler2D stencil : hint_black;
+
+void fragment() {
+	vec4 stencil_test = textureLod(stencil, SCREEN_UV, 0.0);
+	vec4 color_test = stencil_color;
+	
+	float stencil_id = stencil_test.r * 10.0 + stencil_test.g + 100.0 * stencil_test.b + 1000.0;
+	float mask_id = stencil_color.r * 10.0 + stencil_color.g + 100.0 * stencil_color.b + 1000.0;
+	
+	float mask_result = abs(stencil_id - mask_id);
+
+
+	float fresnel_dot = 1.0 - dot(NORMAL, VIEW) * outline_sharpness;
+	ALBEDO = vec3(0.0);
+	EMISSION = smoothstep(0.0, 1.0, fresnel_dot) * outline_color.rgb * color_intensity;
+	ALPHA = max(1.0 - step(mask_result, 0.0), 0.0);
+}"
+
+[sub_resource type="NoiseTexture" id=3]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/outline_color = Color( 0.698039, 0.698039, 0.698039, 1 )
+shader_param/color_intensity = 1.0
+shader_param/outline_sharpness = 0.5
+shader_param/stencil_color = Color( 1, 0, 0, 1 )
+shader_param/stencil = SubResource( 3 )
 
 [resource]
-radius = 0.05
-height = 0.1
-radial_segments = 4
-rings = 4
+material = SubResource( 2 )
+radius = 0.06
+height = 0.12
+radial_segments = 9
+rings = 9

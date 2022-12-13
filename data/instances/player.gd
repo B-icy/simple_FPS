@@ -15,12 +15,16 @@ var health = 100
 var current_weapon = 0
 var ammo_holds = [12, 25]
 var weapon_damage = [8, 5]
+var weapon_movespeed = [1.1, 1]
+var walk_accel_base = 0.6
 
 var _jump_amount = 0
 var _can_double_jump = false
 var _weapon_count = 2
 var _current_ammo = [12, 25]
 var _total_ammo = [100, 300]
+# modifier so that when you're standing still and start moving, slowly ramp into full speed
+var _walk_accel = walk_accel_base
 
 onready var raycast = $Head/Camera/RayCast
 onready var ammo_count = $Head/Camera/Ammo_Count
@@ -64,12 +68,14 @@ func _physics_process(delta):
 		_reload()
 	
 	# call the movement function
-	_move()
+	_move(delta)
 
 # wasd movement controller
-func _move():
+func _move(delta):
 	# local variable for travel direction
 	var direction = Vector3.ZERO
+	
+	# add acceleration when switching directions
 	
 	# check input direction and set movement vector to appropriate value
 	if Input.is_action_pressed("ui_right"):
@@ -86,13 +92,16 @@ func _move():
 	if direction != Vector3.ZERO:
 		direction = direction.normalized().rotated(Vector3.UP, rotation.y)
 		$Head/multiplayer_char.body.play("running")
+		_walk_accel = min(1, _walk_accel + delta)
 	else:
 		$Head/multiplayer_char.body.play("RESET")
+		_walk_accel = walk_accel_base
 	
 	# apply movement to character
-	velocity.x = direction.x * speed
+	var speed_modifier = speed * weapon_movespeed[current_weapon] * _walk_accel
+	velocity.x = direction.x * speed_modifier
 	velocity.y -= gravity
-	velocity.z = direction.z * speed
+	velocity.z = direction.z * speed_modifier
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
 	# reset double jump if on floor

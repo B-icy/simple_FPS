@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://data/instances/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/instances/enemies/SM_Workbench.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://data/instances/enemies/scripts/demo_respawn.gd" type="Script" id=8]
 [ext_resource path="res://data/models/usable/Meat_01.tscn" type="PackedScene" id=9]
 [ext_resource path="res://data/instances/pickups/ak_ammo.tscn" type="PackedScene" id=10]
+[ext_resource path="res://data/maps/peepeemap/penisbunker.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -56,6 +57,7 @@ transform = Transform( 0.831188, 0, -0.555991, 0, 1, 0, 0.555991, 0, 0.831188, 1
 
 [node name="ground" type="MeshInstance" parent="objects"]
 transform = Transform( 83.3332, 0, 0, 0, 0.353111, 0, 0, 0, 83.3332, 0, 0, 0 )
+visible = false
 mesh = SubResource( 1 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 3 )
@@ -67,6 +69,7 @@ collision_layer = 3
 [node name="CollisionShape" type="CollisionShape" parent="objects/ground/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 5, 0, 0, 0, 1, 0, -4.00409, 0 )
 shape = SubResource( 2 )
+disabled = true
 
 [node name="SM_Barrel_Open_01" parent="objects/ground" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216823, 1, -0.253588 )
@@ -77,3 +80,6 @@ visible = false
 
 [node name="AKAmmo" parent="objects" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.20485, 0.804924, -18.4579 )
+
+[node name="Spatial" parent="objects" instance=ExtResource( 11 )]
+transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -23.2931, -82.7403 )

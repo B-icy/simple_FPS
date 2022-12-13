@@ -1,0 +1,141 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://data/maps/peepeemap/texture_02.png" type="Texture" id=1]
+[ext_resource path="res://data/maps/peepeemap/texture_06.png" type="Texture" id=2]
+[ext_resource path="res://data/maps/peepeemap/texture_07.png" type="Texture" id=3]
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="SpatialMaterial" id=10]
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=4]
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=7]
+
+[sub_resource type="SpatialMaterial" id=8]
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=15]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=16]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_texture = ExtResource( 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.999967, 0, -0.00811569, 0, 1, 0, 0.00811569, 0, 0.999967, 0, 0, 0 )
+width = 13.0096
+height = 2.32743
+depth = 9.01661
+material = SubResource( 9 )
+
+[node name="CSGPolygon" type="CSGPolygon" parent="CSGCombiner/CSGBox"]
+transform = Transform( -0.0156449, 0.00214794, 0.999878, 0.264656, 0.964341, 0.00206943, -0.964218, 0.264655, -0.0156555, 0.503465, 0.247863, 2.04657 )
+polygon = PoolVector2Array( 0, 0, 2.68202, 1.62822, 2.15588, -0.0650213, 1, 0 )
+material = SubResource( 10 )
+
+[node name="CSGPolygon" type="CSGPolygon" parent="CSGCombiner/CSGBox/CSGPolygon"]
+transform = Transform( 0.967798, 0.251723, -0.000251802, -0.251724, 0.967795, -0.00196831, -0.000251786, 0.0019683, 0.999998, 2.43585, 0.660078, 0.00820351 )
+polygon = PoolVector2Array( 0, 0, 0, 1, 1, 1, 0.0841384, 0.474304 )
+material = SubResource( 11 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon"]
+transform = Transform( 1, 3.72529e-09, 3.72529e-09, -3.72529e-09, 1, -1.45519e-11, 0, 2.91038e-11, 1, 0.542591, 0.942358, -0.477198 )
+operation = 2
+width = 0.256092
+height = 1.60639
+depth = 0.237517
+material = SubResource( 4 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon"]
+transform = Transform( 0.99995, -0.0100003, -3.90224e-07, 0.0100003, 0.99995, 7.81947e-05, -3.91155e-07, -7.81947e-05, 1, 0.3838, -0.337833, -0.515773 )
+radius = 0.785686
+material = SubResource( 12 )
+
+[node name="CSGTorus" type="CSGTorus" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon/CSGCylinder"]
+inner_radius = 2.22658
+outer_radius = 2.51198
+material = SubResource( 13 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon/CSGCylinder"]
+operation = 2
+radius = 0.723183
+material = SubResource( 7 )
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon/CSGCylinder"]
+transform = Transform( 0.933824, 0.0008484, 0.357734, 0.000923398, 0.999988, -0.00478215, -0.357732, 0.00479581, 0.93381, 0.0862877, 0.22336, 0.202372 )
+operation = 2
+width = 0.180927
+height = 0.152308
+depth = 1.09556
+material = SubResource( 8 )
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon/CSGCylinder"]
+transform = Transform( -0.0153854, 0.0134881, 0.999792, 0.0136979, 0.999818, -0.0132782, -0.999786, 0.0134902, -0.015568, 0.531522, 0.23145, 0.0216885 )
+operation = 2
+width = 0.180927
+height = 0.152308
+depth = 0.794613
+material = SubResource( 8 )
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon/CSGCylinder"]
+transform = Transform( 0.494654, 0.00667396, 0.869065, 0.0068562, 0.99991, -0.0115815, -0.86906, 0.0116868, 0.494563, 0.580782, 0.226545, 0.321076 )
+operation = 2
+width = 0.180927
+height = 0.152308
+depth = 0.794613
+material = SubResource( 8 )
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon/CSGCylinder"]
+transform = Transform( -0.239971, 0.0164976, 0.97064, 0.0167015, 0.999779, -0.0128644, -0.970633, 0.0131235, -0.240194, 0.727154, 0.229702, -0.351696 )
+operation = 2
+width = 0.180927
+height = 0.152308
+depth = 0.794613
+material = SubResource( 8 )
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner/CSGBox/CSGPolygon/CSGPolygon/CSGCylinder"]
+transform = Transform( -0.927892, 0.0257694, 0.371953, 0.0258482, 0.999655, -0.00477759, -0.371947, 0.00518104, -0.928239, 0.381715, 0.229459, -0.979642 )
+operation = 2
+width = 0.180927
+height = 0.152308
+depth = 0.794613
+material = SubResource( 8 )
+
+[node name="CSGSphere" type="CSGSphere" parent="CSGCombiner/CSGBox"]
+transform = Transform( 1, 0, -9.31323e-10, 0, 1, 0, 9.31323e-10, 0, 1, 0.68038, 1.15072, -3.42808 )
+material = SubResource( 14 )
+
+[node name="CSGSphere2" type="CSGSphere" parent="CSGCombiner/CSGBox"]
+transform = Transform( 1, 0, -2.79397e-09, 0, 1, 0, 2.79397e-09, 0, 1, -0.906612, 1.15072, -3.4152 )
+material = SubResource( 15 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCombiner/CSGBox"]
+transform = Transform( 1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, -0.136662, 1.7233, -4.85364 )
+radius = 0.887559
+height = 5.70788
+material = SubResource( 16 )
+
+[node name="CSGSphere" type="CSGSphere" parent="CSGCombiner/CSGBox/CSGCylinder"]
+transform = Transform( 1, 0, 9.31323e-10, 0, 1, 0, -9.31323e-10, 0, 1, 0, 2.46671, 0 )
+material = SubResource( 17 )
