@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/soldier2_collision.glb-d0f3864c9ccccf3c0f1c39071b4e4fe4.scn"
+path="res://.import/knife.fbx-3a2f60063ec67cbd6c1de290e68697a1.scn"
 
 [deps]
 
-source_file="res://data/models/OpenGameArt/soldier2_collision.glb"
-dest_files=[ "res://.import/soldier2_collision.glb-d0f3864c9ccccf3c0f1c39071b4e4fe4.scn" ]
+source_file="res://data/models/OpenGameArt/Knife/knife.fbx"
+dest_files=[ "res://.import/knife.fbx-3a2f60063ec67cbd6c1de290e68697a1.scn" ]
 
 [params]
 

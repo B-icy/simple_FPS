@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/knife.obj-6c866913e5b142f6d3c405d7c74c5fc0.mesh"
+
+[deps]
+
+files=[ "res://.import/knife.obj-6c866913e5b142f6d3c405d7c74c5fc0.mesh" ]
+
+source_file="res://data/models/OpenGameArt/Knife/knife.obj"
+dest_files=[ "res://.import/knife.obj-6c866913e5b142f6d3c405d7c74c5fc0.mesh", "res://.import/knife.obj-6c866913e5b142f6d3c405d7c74c5fc0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

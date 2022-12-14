@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/soldier2.glb-18307e346c9b60504edff1c4ce1fd26f.scn"
+path="res://.import/soldier2_collision.glb-db7d8923ee27b1f9929fc2175e788083.scn"
 
 [deps]
 
-source_file="res://data/models/OpenGameArt/soldier2.glb"
-dest_files=[ "res://.import/soldier2.glb-18307e346c9b60504edff1c4ce1fd26f.scn" ]
+source_file="res://data/models/OpenGameArt/soldier2/soldier2_collision.glb"
+dest_files=[ "res://.import/soldier2_collision.glb-db7d8923ee27b1f9929fc2175e788083.scn" ]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://data/instances/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/models/usable/SM_Army_Pistol.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://data/sfx/gunshots/ak47/ak47.wav" type="AudioStream" id=12]
 [ext_resource path="res://data/sfx/gunshots/ak47/ak47_reload.wav" type="AudioStream" id=13]
 [ext_resource path="res://data/2d_textures/ammo_ak.png" type="Texture" id=14]
+[ext_resource path="res://data/models/usable/knife.tscn" type="PackedScene" id=15]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 1.60179
@@ -176,6 +177,30 @@ tracks/12/keys = {
 "update": 0,
 "values": [ "12" ]
 }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Head/Weapons/knife:translation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.426, 0.65, 0 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Head/Weapons/knife:rotation_degrees")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 70, 15, 0 ) ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "fire_ak"
@@ -204,6 +229,35 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "fire_knife"
+length = 0.4
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Weapons/knife:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.025, 0.075, 0.175, 0.325 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.426, 0.65, 0 ), Vector3( 0.325, 0.402, -0.252 ), Vector3( 0.102177, 0.488351, -0.791516 ), Vector3( 0.228764, 0.488351, -0.332197 ), Vector3( 0.426, 0.65, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Weapons/knife:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.025, 0.075, 0.175, 0.325 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 70, 15, 0 ), Vector3( 30, 15.142, -3.919 ), Vector3( 0, 15.425, -11.758 ), Vector3( 24.9936, 15.4249, -11.7583 ), Vector3( 70, 15, 0 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -428,7 +482,7 @@ radius = 1.5
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
-speed = 40
+speed = 27
 gravity = 1.8
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -538,6 +592,10 @@ transform = Transform( -8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0.5, 0.
 transform = Transform( 0.0174312, 0, 0.199239, 0, 0.2, 0, -0.199239, 0, 0.0174312, 0.5, 0.5, -0.3 )
 visible = false
 
+[node name="knife" parent="Head/Weapons" instance=ExtResource( 15 )]
+transform = Transform( 1.44889, 0.364815, 0.159338, 0, 0.51303, -1.69145, -0.388229, 1.36151, 0.594659, 0.426, 0.65, 0 )
+visible = false
+
 [node name="Audio" type="Spatial" parent="Head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72726, -0.511658 )
 
@@ -560,6 +618,7 @@ stream = ExtResource( 13 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/fire_ak = SubResource( 6 )
+anims/fire_knife = SubResource( 9 )
 anims/fire_pistol = SubResource( 2 )
 anims/out_pistol = SubResource( 5 )
 anims/reload_ak = SubResource( 7 )

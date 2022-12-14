@@ -37,6 +37,7 @@ func _move(delta):
 	direction = direction.normalized().rotated(Vector3.UP, rotation.y) * speed
 	
 	# move char in forward direction
+	direction.y -= gravity
 	velocity = move_and_slide(direction, Vector3.UP)
 	
 	# randomly rotate the character smoothly

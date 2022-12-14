@@ -6,7 +6,7 @@
 extents = Vector3( 3, 3, 3 )
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.340118, 0.0911148, 0.0885334 )
+extents = Vector3( 0.4, 0.12, 0.1 )
 
 [node name="RigidBody" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.110887, 0, 0 )
