@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bolt_click.wav-419b0140561438474913e0b5bc2ffe3e.sample"
+
+[deps]
+
+source_file="res://data/sfx/gunshots/dragunov/bolt_click.wav"
+dest_files=[ "res://.import/bolt_click.wav-419b0140561438474913e0b5bc2ffe3e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

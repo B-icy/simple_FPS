@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://data/instances/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/models/usable/SM_Army_Pistol.tscn" type="PackedScene" id=2]
@@ -15,6 +15,12 @@
 [ext_resource path="res://data/sfx/gunshots/ak47/ak47_reload.wav" type="AudioStream" id=13]
 [ext_resource path="res://data/2d_textures/ammo_ak.png" type="Texture" id=14]
 [ext_resource path="res://data/models/usable/knife.tscn" type="PackedScene" id=15]
+[ext_resource path="res://data/2d_textures/ammo-knife.png" type="Texture" id=16]
+[ext_resource path="res://data/models/usable/dragunov.tscn" type="PackedScene" id=17]
+[ext_resource path="res://data/sfx/gunshots/dragunov/bolt_click.wav" type="AudioStream" id=18]
+[ext_resource path="res://data/sfx/gunshots/dragunov/dragunov_reload.mp3" type="AudioStream" id=19]
+[ext_resource path="res://data/sfx/gunshots/dragunov/click.wav" type="AudioStream" id=20]
+[ext_resource path="res://data/sfx/gunshots/dragunov/dragunov_shot.wav" type="AudioStream" id=21]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 1.60179
@@ -166,7 +172,7 @@ tracks/11/keys = {
 "values": [ false ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Head/Camera/Ammo_Count:text")
+tracks/12/path = NodePath("Head/Weapons/knife:translation")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -175,10 +181,10 @@ tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ "12" ]
+"values": [ Vector3( 0.426, 0.65, 0 ) ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("Head/Weapons/knife:translation")
+tracks/13/path = NodePath("Head/Weapons/knife:rotation_degrees")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -187,10 +193,10 @@ tracks/13/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0.426, 0.65, 0 ) ]
+"values": [ Vector3( 70, 15, 0 ) ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("Head/Weapons/knife:rotation_degrees")
+tracks/14/path = NodePath("Head/Camera/RayCast:enabled")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
@@ -198,8 +204,80 @@ tracks/14/enabled = true
 tracks/14/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Head/Camera:fov")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 70, 15, 0 ) ]
+"values": [ 70.0 ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Head/Weapons/dragunov:translation")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.474, 0.728, -0.793 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Head/Weapons/dragunov:rotation_degrees")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Head/Audio/dragunov_shot:playing")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("Head/Audio/dragunov_bolt_click:playing")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("Head/Audio/dragunov_scope_click:playing")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -225,6 +303,110 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "fire_dragunov"
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Weapons/dragunov:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.025, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.474, 0.728, -0.793 ), Vector3( 0.474, 0.728, -0.1 ), Vector3( 0.474, 0.728, -0.793 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Weapons/dragunov:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.025, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 5, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/Audio/dragunov_shot:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Head/Audio/dragunov_bolt_click:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.575 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "fire_dragunov_scoped"
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 30.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Weapons/dragunov:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.025, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.003, 0.665, -0.783 ), Vector3( 0.003, 0.671, 0 ), Vector3( 0.003, 0.665, -0.783 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/Audio/dragunov_bolt_click:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Head/Audio/dragunov_shot:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -258,6 +440,20 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 70, 15, 0 ), Vector3( 30, 15.142, -3.919 ), Vector3( 0, 15.425, -11.758 ), Vector3( 24.9936, 15.4249, -11.7583 ), Vector3( 70, 15, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.075 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_knife"
+} ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -385,6 +581,61 @@ tracks/2/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=14]
+resource_name = "reload_dragunov"
+length = 1.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Weapons/dragunov:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.55, 0.85, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -9.465, 3.69823e-07, -31.292 ), Vector3( -9.465, 3.69823e-07, -31.292 ), Vector3( -9.465, 3.69823e-07, -31.292 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Weapons/dragunov:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.4, 0.55, 0.7, 0.85, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.474, 0.728, -0.793 ), Vector3( 0.580229, 1.0966, -0.918355 ), Vector3( 0.48, 0.9, -0.918 ), Vector3( 0.580229, 1.0966, -0.918355 ), Vector3( 0.48, 0.9, -0.918 ), Vector3( 0.580229, 1.0966, -0.918355 ), Vector3( 0.474, 0.728, -0.793 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/Camera:fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 70.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.85 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_reload_anim"
+} ]
+}
+
 [sub_resource type="Animation" id=4]
 resource_name = "reload_pistol"
 length = 0.95
@@ -476,6 +727,86 @@ tracks/6/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=10]
+resource_name = "scope_dragunov"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 70.0, 30.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Weapons/dragunov:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.474, 0.728, -0.793 ), Vector3( 0.003, 0.665, -0.783 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/Audio/dragunov_scope_click:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "unscope_dragunov"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 30.0, 70.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Weapons/dragunov:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.671, -0.783 ), Vector3( 0.474, 0.728, -0.793 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/Audio/dragunov_scope_click:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [sub_resource type="CylinderShape" id=8]
 height = 5.0
 radius = 1.5
@@ -510,7 +841,7 @@ texture = ExtResource( 3 )
 [node name="RayCast" type="RayCast" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.599181 )
 enabled = true
-cast_to = Vector3( 0, 0, -200 )
+cast_to = Vector3( 0, 0, -5 )
 collision_mask = 2
 
 [node name="Ammo_Icon" type="TextureRect" parent="Head/Camera"]
@@ -523,12 +854,23 @@ texture = ExtResource( 4 )
 stretch_mode = 1
 
 [node name="Ammo_Icon_AK" type="TextureRect" parent="Head/Camera"]
+visible = false
 margin_left = 21.0
 margin_top = 930.0
 margin_right = 821.0
 margin_bottom = 1730.0
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 14 )
+stretch_mode = 1
+
+[node name="Ammo_Icon_Knife" type="TextureRect" parent="Head/Camera"]
+visible = false
+margin_left = 21.0
+margin_top = 930.0
+margin_right = 821.0
+margin_bottom = 1730.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 16 )
 stretch_mode = 1
 
 [node name="Ammo_Count" type="Label" parent="Head/Camera"]
@@ -592,8 +934,12 @@ transform = Transform( -8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0.5, 0.
 transform = Transform( 0.0174312, 0, 0.199239, 0, 0.2, 0, -0.199239, 0, 0.0174312, 0.5, 0.5, -0.3 )
 visible = false
 
+[node name="dragunov" parent="Head/Weapons" instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474, 0.728, -0.793 )
+visible = false
+
 [node name="knife" parent="Head/Weapons" instance=ExtResource( 15 )]
-transform = Transform( 1.44889, 0.364815, 0.159338, 0, 0.51303, -1.69145, -0.388229, 1.36151, 0.594659, 0.426, 0.65, 0 )
+transform = Transform( 1.44889, 0.364815, 0.159339, 0, 0.51303, -1.69145, -0.388229, 1.36151, 0.59466, 0.426, 0.65, 0 )
 visible = false
 
 [node name="Audio" type="Spatial" parent="Head"]
@@ -601,28 +947,56 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72726, -0.511658 )
 
 [node name="pistol_light_shot" type="AudioStreamPlayer3D" parent="Head/Audio"]
 stream = ExtResource( 6 )
+unit_db = 1.0
+max_db = 1.0
 
 [node name="pistol_light_out" type="AudioStreamPlayer3D" parent="Head/Audio"]
 stream = ExtResource( 7 )
+max_db = 0.2
 
 [node name="pistol_light_reload" type="AudioStreamPlayer3D" parent="Head/Audio"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0299394, 0.187614, -0.353031 )
 stream = ExtResource( 8 )
 unit_db = 5.0
+max_db = 1.0
 
 [node name="ak47_shot" type="AudioStreamPlayer3D" parent="Head/Audio"]
 stream = ExtResource( 12 )
+max_db = 0.2
 
 [node name="ak47_reload" type="AudioStreamPlayer3D" parent="Head/Audio"]
 stream = ExtResource( 13 )
+max_db = 0.2
+
+[node name="dragunov_shot" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 21 )
+max_db = 0.2
+
+[node name="dragunov_reload" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 19 )
+max_db = 0.2
+
+[node name="dragunov_scope_click" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 20 )
+max_db = 0.2
+
+[node name="dragunov_bolt_click" type="AudioStreamPlayer3D" parent="Head/Audio"]
+stream = ExtResource( 18 )
+max_db = 0.903
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/fire_ak = SubResource( 6 )
+anims/fire_dragunov = SubResource( 12 )
+anims/fire_dragunov_scoped = SubResource( 13 )
 anims/fire_knife = SubResource( 9 )
 anims/fire_pistol = SubResource( 2 )
 anims/out_pistol = SubResource( 5 )
 anims/reload_ak = SubResource( 7 )
+anims/reload_dragunov = SubResource( 14 )
 anims/reload_pistol = SubResource( 4 )
+anims/scope_dragunov = SubResource( 10 )
+anims/unscope_dragunov = SubResource( 11 )
 
 [node name="Area" type="Area" parent="."]
 collision_layer = 4

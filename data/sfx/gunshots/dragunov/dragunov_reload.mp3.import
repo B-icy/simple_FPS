@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/dragunov_reload.mp3-02fd96a6f86bea3ec2b2678784b79777.mp3str"
+
+[deps]
+
+source_file="res://data/sfx/gunshots/dragunov/dragunov_reload.mp3"
+dest_files=[ "res://.import/dragunov_reload.mp3-02fd96a6f86bea3ec2b2678784b79777.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

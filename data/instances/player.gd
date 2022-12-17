@@ -13,16 +13,17 @@ var jump_strength = 50
 var jump_decay = 0.95
 var health = 100
 var current_weapon = 0
-var ammo_holds = [12, 25, 0]
-var weapon_damage = [8, 5, 20]
-var weapon_movespeed = [1.1, 1, 1.3]
+var ammo_holds = [12, 25, 6, 0]
+var weapon_damage = [8, 5, 20, 20]
+var weapon_movespeed = [1.1, 1, 0.8, 1.3]
 var walk_accel_base = 0.6
+var scoped_in = false
 
 var _jump_amount = 0
 var _can_double_jump = false
-var _weapon_count = 3
-var _current_ammo = [12, 25, 0]
-var _total_ammo = [100, 300, 0]
+var _weapon_count = 4
+var _current_ammo = [12, 25, 6, 0]
+var _total_ammo = [100, 300, 30, 0]
 # modifier so that when you're standing still and start moving, slowly ramp into full speed
 var _walk_accel = walk_accel_base
 
@@ -32,9 +33,9 @@ onready var total_ammo_count = $Head/Camera/TotalAmmo
 onready var particles = preload("res://data/instances/particles/Bullet_Effect.tscn")
 onready var fps_counter = $Head/Camera/FPS
 onready var health_label = $Head/Camera/Health
-onready var weapon_list = [$Head/Weapons/Pistol, $Head/Weapons/AK47, $Head/Weapons/knife]
+onready var weapon_list = [$Head/Weapons/Pistol, $Head/Weapons/AK47, $Head/Weapons/dragunov, $Head/Weapons/knife]
 onready var current_weapon_sprite = weapon_list[0]
-onready var current_ammo_sprite = [$Head/Camera/Ammo_Icon, $Head/Camera/Ammo_Icon_AK, $Head/Camera/Ammo_Icon_AK]
+onready var current_ammo_sprite = [$Head/Camera/Ammo_Icon, $Head/Camera/Ammo_Icon_AK, $Head/Camera/Ammo_Icon_AK, $Head/Camera/Ammo_Icon_Knife]
 
 ##########################################################
 # Functions
@@ -54,8 +55,12 @@ func _physics_process(delta):
 	elif Input.is_action_just_pressed("change_weapon_up"):
 		_change_weapon("up")
 	
+	# run scope in function if scoping in on appropriate weapon
+	if Input.is_action_just_pressed("scope_in") and current_weapon == 2:
+		_scope_in()
+	
 	# fire if mouse button is pressed (semi auto for pistol and knife, full auto for ak
-	if Input.is_action_just_pressed("ui_fire") and (current_weapon == 0 or current_weapon == 2):
+	if Input.is_action_just_pressed("ui_fire") and (current_weapon == 0 or current_weapon == 2 or current_weapon == 3):
 		_fire()
 	elif Input.is_action_pressed("ui_fire") and current_weapon == 1:
 		_fire()
@@ -115,12 +120,17 @@ func _move(delta):
 
 # hand jump movement
 func _jump():
+	# jump a little higher if holding a knife
+	var jump_multiplier = 1
+	if current_weapon == 3:
+		jump_multiplier = 1.2
 	if is_on_floor():
-		_jump_amount = jump_strength
+		_jump_amount = jump_strength * jump_multiplier
 		move_and_slide(jump_strength * Vector3.UP)
+	# double jump logic
 	elif _can_double_jump and Input.is_action_just_pressed("ui_accept"):
 		_can_double_jump = false
-		_jump_amount = jump_strength
+		_jump_amount = jump_strength * jump_multiplier
 		velocity.y = 0
 		move_and_slide(jump_strength * Vector3.UP)
 
@@ -139,8 +149,13 @@ func _input(event):
 
 # fire weapon
 func _fire():
-	# if current ammo is > 0 and there is no weapon animation playing or if on knife
-	if (int(ammo_count.text) > 0 and $AnimationPlayer.current_animation == "") or (current_weapon == 2 and $AnimationPlayer.current_animation == ""):
+	# if using a knife
+	if current_weapon == 3 and $AnimationPlayer.current_animation == "":
+		raycast.cast_to = Vector3(0, 0, -5)
+		$AnimationPlayer.play("fire_knife")
+	
+	# if current ammo is > 0 and there is no weapon animation playing\
+	elif int(ammo_count.text) > 0 and $AnimationPlayer.current_animation == "":
 		# update ammo text, note text must be string hence conversion
 		_current_ammo[current_weapon] -= 1
 		ammo_count.text = str(int(ammo_count.text) - 1)
@@ -151,14 +166,13 @@ func _fire():
 		elif current_weapon == 1:
 			$AnimationPlayer.play("fire_ak")
 		elif current_weapon == 2:
-			$AnimationPlayer.play("fire_knife")
+			if scoped_in == true:
+				$AnimationPlayer.play("fire_dragunov_scoped")
+			else:
+				$AnimationPlayer.play("fire_dragunov")
 		
 		# test if ray cast is colliding with an object 
-		# adjust length of vector based off weapon selected
-		if current_weapon == 2:
-			raycast.cast_to = Vector3(0, 0, -5)
-		else:
-			raycast.cast_to = Vector3(0, 0, -1000)
+		raycast.cast_to = Vector3(0, 0, -1000)
 		if raycast.is_colliding():
 			var location = raycast.get_collision_point()
 			var target = raycast.get_collider()
@@ -170,6 +184,30 @@ func _fire():
 	# if trying to shoot and no ammo
 	elif $AnimationPlayer.current_animation == "" and Input.is_action_just_pressed("ui_fire"):
 		$AnimationPlayer.play("out_pistol")
+
+# scope in function
+func _scope_in():
+	# check if in a current animation
+	if $AnimationPlayer.current_animation != "":
+		return
+	
+	# check which state currently in and scope in/out
+	if current_weapon == 2 and $Head/Camera.fov == 70:
+		$AnimationPlayer.play("scope_dragunov")
+		scoped_in = true
+	else:
+		$AnimationPlayer.play("unscope_dragunov")
+		scoped_in = false
+
+# knife logic, called from animation player
+func _knife():
+	if raycast.is_colliding():
+			var location = raycast.get_collision_point()
+			var target = raycast.get_collider()
+			_bullet_effect(location)
+			
+			if target.is_in_group("enemy"):
+				target.take_damage(weapon_damage[current_weapon])
 
 # play bullet effect, add particle effect to location
 func _bullet_effect(location):
@@ -195,6 +233,8 @@ func _reload():
 			$Head/multiplayer_char.hands.play("reload_pistol")
 		if current_weapon == 1:
 			$AnimationPlayer.play("reload_ak")
+		if current_weapon == 2:
+			$AnimationPlayer.play("reload_dragunov")
 
 # called by animation player
 func _reload_anim():
@@ -213,6 +253,9 @@ func _change_weapon(direction):
 	# if an animation is playing, stop weapon change
 	if $AnimationPlayer.current_animation != "":
 		return
+	
+	# clear any current animation effects
+	$AnimationPlayer.play("RESET")
 	
 	if direction == "up":
 		current_weapon = (current_weapon + 1) % _weapon_count
