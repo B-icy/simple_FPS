@@ -24,6 +24,8 @@ var _can_double_jump = false
 var _weapon_count = 4
 var _current_ammo = [12, 25, 6, 0]
 var _total_ammo = [100, 300, 30, 0]
+
+export var _can_halfscope = false
 # modifier so that when you're standing still and start moving, slowly ramp into full speed
 var _walk_accel = walk_accel_base
 
@@ -57,7 +59,7 @@ func _physics_process(delta):
 	
 	# run scope in function if scoping in on appropriate weapon
 	if Input.is_action_just_pressed("scope_in") and current_weapon == 2:
-		_scope_in()
+		_scope()
 	
 	# fire if mouse button is pressed (semi auto for pistol and knife, full auto for ak
 	if Input.is_action_just_pressed("ui_fire") and (current_weapon == 0 or current_weapon == 2 or current_weapon == 3):
@@ -186,9 +188,12 @@ func _fire():
 		$AnimationPlayer.play("out_pistol")
 
 # scope in function
-func _scope_in():
-	# check if in a current animation
-	if $AnimationPlayer.current_animation != "":
+func _scope():
+	# check if halfscoping
+	var half_scoping = $AnimationPlayer.current_animation == "fire_dragunov_scoped" and _can_halfscope
+	
+	# check if in a current animation or halfscoping, if thats the case exit function
+	if $AnimationPlayer.current_animation != "" and not half_scoping:
 		return
 	
 	# check which state currently in and scope in/out
@@ -270,7 +275,6 @@ func _change_weapon(direction):
 	current_weapon_sprite.visible = true
 	
 	_update_ammo_labels()
-	
 
 # pickup other items
 func _on_Area_area_entered(area):

@@ -1,0 +1,53 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://data/2d_textures/dirt.png" type="Texture" id=1]
+[ext_resource path="res://data/models/Kenny Assets/Nature/glTF format/tree_oak_dark.gltf" type="PackedScene" id=2]
+[ext_resource path="res://data/models/Kenny Assets/Nature/glTF format/tree_oak.gltf" type="PackedScene" id=3]
+[ext_resource path="res://data/models/Kenny Assets/Nature/glTF format/tree_detailed_dark.gltf" type="PackedScene" id=4]
+[ext_resource path="res://data/models/Kenny Assets/Nature/glTF format/tree_plateau.gltf" type="PackedScene" id=5]
+[ext_resource path="res://data/models/Kenny Assets/Nature/glTF format/tree_pine_tallSquare_detailed.gltf" type="PackedScene" id=6]
+[ext_resource path="res://data/models/Kenny Assets/Nature/glTF format/tree_oak_fall.gltf" type="PackedScene" id=7]
+[ext_resource path="res://data/models/Kenny Assets/Nature/glTF format/cactus_short.gltf" type="PackedScene" id=8]
+[ext_resource path="res://data/models/Kenny Assets/Nature/glTF format/canoe.gltf" type="PackedScene" id=9]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 150, 150, 150 )
+uv1_offset = Vector3( 3, 0, 0 )
+uv2_scale = Vector3( 0.1, 0.1, 0.1 )
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[node name="MyTestMap" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 245.086, 0, 0, 0, 0.1, 0, 0, 0, 245.086, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="forest" type="Spatial" parent="."]
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
+
+[node name="tree_detailed_dark" parent="." instance=ExtResource( 4 )]
+
+[node name="tree_oak" parent="." instance=ExtResource( 3 )]
+
+[node name="tree_oak_dark" parent="." instance=ExtResource( 2 )]
+
+[node name="tree_oak_fall" parent="." instance=ExtResource( 7 )]
+
+[node name="tree_plateau" parent="." instance=ExtResource( 5 )]
+
+[node name="tree_pine_tallSquare_detailed" parent="." instance=ExtResource( 6 )]
+
+[node name="canoe" parent="." instance=ExtResource( 9 )]
+
+[node name="cactus_short" parent="." instance=ExtResource( 8 )]

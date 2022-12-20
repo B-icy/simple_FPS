@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_right = 600.0
+margin_bottom = 200.0
+text = "simply_FPS"
