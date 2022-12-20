@@ -839,16 +839,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554138, -1.25702 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -2.23941, 1.41679 )
 
 [node name="Camera" type="Camera" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0.64 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0.656104 )
 far = 1000.0
 script = ExtResource( 10 )
 
 [node name="Crosshair" type="TextureRect" parent="Head/Camera"]
-margin_left = 945.0
-margin_top = 525.0
-margin_right = 1915.0
-margin_bottom = 1105.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 3 )
+stretch_mode = 4
 
 [node name="RayCast" type="RayCast" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.599181 )
@@ -857,39 +856,46 @@ cast_to = Vector3( 0, 0, -5 )
 collision_mask = 2
 
 [node name="Ammo_Icon" type="TextureRect" parent="Head/Camera"]
-margin_left = 21.0
-margin_top = 930.0
-margin_right = 821.0
-margin_bottom = 1730.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -76.0
+margin_right = 798.0
+margin_bottom = 724.0
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 4 )
 stretch_mode = 1
 
 [node name="Ammo_Icon_AK" type="TextureRect" parent="Head/Camera"]
 visible = false
-margin_left = 21.0
-margin_top = 930.0
-margin_right = 821.0
-margin_bottom = 1730.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -83.9999
+margin_right = 800.0
+margin_bottom = 716.0
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 14 )
 stretch_mode = 1
 
 [node name="Ammo_Icon_Knife" type="TextureRect" parent="Head/Camera"]
 visible = false
-margin_left = 21.0
-margin_top = 930.0
-margin_right = 821.0
-margin_bottom = 1730.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = -86.0
+margin_right = 803.0
+margin_bottom = 714.0
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 16 )
 stretch_mode = 1
 
 [node name="Ammo_Count" type="Label" parent="Head/Camera"]
-margin_left = 7.0
-margin_top = 951.0
-margin_right = 53.0
-margin_bottom = 968.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -18.0
+margin_top = -58.0
+margin_right = 28.0
+margin_bottom = -41.0
 rect_scale = Vector2( 3, 3 )
 custom_colors/font_color = Color( 0.807843, 0.796078, 0.0980392, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
@@ -898,10 +904,12 @@ text = "12"
 align = 2
 
 [node name="TotalAmmo" type="Label" parent="Head/Camera"]
-margin_left = 153.0
-margin_top = 951.0
-margin_right = 199.0
-margin_bottom = 968.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 131.0
+margin_top = -58.0
+margin_right = 177.0
+margin_bottom = -41.0
 rect_scale = Vector2( 3, 3 )
 custom_colors/font_color = Color( 0.807843, 0.796078, 0.0980392, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
@@ -909,10 +917,12 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "/ 100"
 
 [node name="Health" type="Label" parent="Head/Camera"]
-margin_left = 15.0
-margin_top = 1027.0
-margin_right = 61.0
-margin_bottom = 1044.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = -187.0
+margin_right = 62.0
+margin_bottom = -170.0
 rect_scale = Vector2( 4, 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
@@ -951,7 +961,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474, 0.728, -0.793 )
 visible = false
 
 [node name="knife" parent="Head/Weapons" instance=ExtResource( 15 )]
-transform = Transform( 1.44889, 0.364815, 0.159339, 0, 0.51303, -1.69145, -0.388229, 1.36151, 0.59466, 0.426, 0.65, 0 )
+transform = Transform( 1.44889, 0.364816, 0.159339, 0, 0.51303, -1.69145, -0.388229, 1.36151, 0.59466, 0.426, 0.65, 0 )
 visible = false
 
 [node name="Audio" type="Spatial" parent="Head"]

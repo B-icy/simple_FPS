@@ -207,12 +207,12 @@ func _scope():
 # knife logic, called from animation player
 func _knife():
 	if raycast.is_colliding():
-			var location = raycast.get_collision_point()
-			var target = raycast.get_collider()
-			_bullet_effect(location)
-			
-			if target.is_in_group("enemy"):
-				target.take_damage(weapon_damage[current_weapon])
+		var location = raycast.get_collision_point()
+		var target = raycast.get_collider()
+		_bullet_effect(location)
+		
+		if target.is_in_group("enemy"):
+			target.take_damage(weapon_damage[current_weapon])
 
 # play bullet effect, add particle effect to location
 func _bullet_effect(location):

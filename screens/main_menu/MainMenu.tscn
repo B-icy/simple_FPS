@@ -1,4 +1,6 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="Theme" id=1]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -7,4 +9,5 @@ anchor_bottom = 1.0
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_right = 600.0
 margin_bottom = 200.0
+theme = SubResource( 1 )
 text = "simply_FPS"
