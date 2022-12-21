@@ -2,7 +2,7 @@
 
 [ext_resource path="res://data/instances/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/instances/enemies/SM_Workbench.tscn" type="PackedScene" id=2]
-[ext_resource path="res://data/maps/testmap/MyTestMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://data/maps/peepeemap/penisbunker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://data/models/usable/SM_Barrel_Open_01.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/instances/Mirror.tscn" type="PackedScene" id=7]
 [ext_resource path="res://data/instances/enemies/scripts/demo_respawn.gd" type="Script" id=8]
@@ -17,7 +17,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.90366, 0 )
 [node name="enemies" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="MyTestMap" parent="." instance=ExtResource( 3 )]
+[node name="Spatial" parent="." instance=ExtResource( 3 )]
+transform = Transform( 15, 0, 0, 0, 15, 0, 0, 0, 15, 0, -17.8503, -60.4686 )
 
 [node name="objects" type="Node" parent="."]
 

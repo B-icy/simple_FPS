@@ -1,6 +1,6 @@
 extends Node
 
-var spawn_locations = [Vector3(0, 3, -15), Vector3(-14, 3, -4), Vector3(8, 3, -30), Vector3(-20, 3, -20)]
+var spawn_locations = [Vector3(0, 10, -15), Vector3(-14, 10, -4), Vector3(8, 10, -30), Vector3(-20, 10, -20)]
 
 onready var soldier = preload("res://data/instances/enemies/soldier2.tscn")
 

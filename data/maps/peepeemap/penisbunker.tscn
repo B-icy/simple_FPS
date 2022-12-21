@@ -124,17 +124,14 @@ material = SubResource( 8 )
 
 [node name="CSGSphere" type="CSGSphere" parent="CSGCombiner/CSGBox"]
 transform = Transform( 1, 0, -9.31323e-10, 0, 1, 0, 9.31323e-10, 0, 1, 0.68038, 1.15072, -3.42808 )
-visible = false
 material = SubResource( 14 )
 
 [node name="CSGSphere2" type="CSGSphere" parent="CSGCombiner/CSGBox"]
 transform = Transform( 1, 0, -2.79397e-09, 0, 1, 0, 2.79397e-09, 0, 1, -0.906612, 1.15072, -3.4152 )
-visible = false
 material = SubResource( 15 )
 
 [node name="CSGCylinder" type="CSGCylinder" parent="CSGCombiner/CSGBox"]
 transform = Transform( 1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, -0.136662, 1.7233, -4.85364 )
-visible = false
 radius = 0.887559
 height = 5.70788
 material = SubResource( 16 )

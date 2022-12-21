@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://data/maps/testmap3/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/instances/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://data/instances/enemies/scripts/demo_respawn.gd" type="Script" id=3]
 
 [sub_resource type="ProceduralSky" id=1]
-radiance_size = 3
+radiance_size = 0
 sun_color = Color( 0.945098, 0.890196, 0.427451, 1 )
 sun_latitude = 155.91
 sun_longitude = 156.0
@@ -15,19 +16,17 @@ sun_curve = 0.0189465
 background_mode = 2
 background_sky = SubResource( 1 )
 ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.5
 auto_exposure_enabled = true
+ss_reflections_enabled = true
+ssao_quality = 0
+ssao_blur = 1
 dof_blur_far_distance = 500.0
 
 [node name="MapThree" type="Spatial"]
 
 [node name="Terrain" parent="." instance=ExtResource( 1 )]
-transform = Transform( 20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0 )
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 0 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -36,9 +35,25 @@ __meta__ = {
 environment = SubResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.992252, -0.106768, 0.0635354, -0.124242, -0.852695, 0.507421, 0, -0.511383, -0.859353, 9.58779, 15.321, -73.6233 )
-light_energy = 1.184
+transform = Transform( 0.899286, -0.312884, -0.305596, -0.124242, -0.852695, 0.507421, -0.419344, -0.418348, -0.80569, -75.4122, 92.321, -73.6233 )
 light_bake_mode = 2
 shadow_enabled = true
-directional_shadow_split_1 = 0.15
+shadow_bias = 0.693
 directional_shadow_depth_range = 1
+directional_shadow_max_distance = 1000.0
+
+[node name="Spawn0" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -74, 8, 0 )
+
+[node name="Player" parent="Spawn0" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+respawn_location = Vector3( -74, 8, 0 )
+
+[node name="Spawn1" type="Spatial" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 75, 8, 0 )
+
+[node name="enemies" type="Node" parent="."]
+script = ExtResource( 3 )

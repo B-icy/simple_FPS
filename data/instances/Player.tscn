@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://data/instances/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/models/usable/SM_Army_Pistol.tscn" type="PackedScene" id=2]
@@ -21,9 +21,53 @@
 [ext_resource path="res://data/sfx/gunshots/dragunov/dragunov_reload.mp3" type="AudioStream" id=19]
 [ext_resource path="res://data/sfx/gunshots/dragunov/click.wav" type="AudioStream" id=20]
 [ext_resource path="res://data/sfx/gunshots/dragunov/dragunov_shot.wav" type="AudioStream" id=21]
+[ext_resource path="res://data/fonts/Kenney Bold.ttf" type="DynamicFontData" id=22]
+[ext_resource path="res://data/fonts/Kenney Future.ttf" type="DynamicFontData" id=23]
 
 [sub_resource type="CapsuleShape" id=1]
-height = 1.60179
+height = 2.22697
+
+[sub_resource type="DynamicFont" id=15]
+outline_size = 1
+font_data = ExtResource( 22 )
+
+[sub_resource type="Theme" id=16]
+default_font = SubResource( 15 )
+
+[sub_resource type="Shader" id=17]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float circle_size : hint_range(0.0, 1.05);
+uniform float screen_width;
+uniform float screen_height;
+
+void fragment() {
+	float ratio = screen_width / screen_height;
+	float dist = distance(vec2(0.5, 0.5), vec2(mix(0.5, UV.x, ratio), UV.y));
+	COLOR.a = step(circle_size, dist);
+}"
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = SubResource( 17 )
+shader_param/circle_size = 1.05
+shader_param/screen_width = 2560.0
+shader_param/screen_height = 1440.0
+
+[sub_resource type="DynamicFont" id=21]
+size = 32
+outline_color = Color( 0, 0.494118, 0.133333, 1 )
+font_data = ExtResource( 22 )
+
+[sub_resource type="Theme" id=22]
+default_font = SubResource( 21 )
+
+[sub_resource type="DynamicFont" id=23]
+size = 96
+font_data = ExtResource( 23 )
+
+[sub_resource type="Theme" id=24]
+default_font = SubResource( 23 )
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -278,6 +322,58 @@ tracks/20/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ false ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("Head/Camera/DeathScreen:material:shader_param/circle_size")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.05 ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("Head/Camera/DeathScreen/DeathUIElements:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "death_screen"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/DeathScreen:material:shader_param/circle_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.7, 0.9, 1.3, 1.6, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 1.05, 0.3, 0.8, 0.8, 0.3, 0.35, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Camera/DeathScreen/DeathUIElements:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -739,6 +835,34 @@ tracks/6/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=20]
+resource_name = "respawn"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Camera/DeathScreen:material:shader_param/circle_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.3, 1.2 ),
+"transitions": PoolRealArray( 14.9285, 1 ),
+"update": 0,
+"values": [ 0.0, 1.05 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Camera/DeathScreen/DeathUIElements:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [sub_resource type="Animation" id=10]
 resource_name = "scope_dragunov"
 length = 0.3
@@ -829,7 +953,7 @@ speed = 27
 gravity = 1.8
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.276511, 0 )
 shape = SubResource( 1 )
 
 [node name="Head" type="Spatial" parent="."]
@@ -930,16 +1054,71 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "100"
 
 [node name="FPS" type="Label" parent="Head/Camera"]
-margin_right = 100.0
-margin_bottom = 100.0
+margin_left = 11.0
+margin_top = 8.0
+margin_right = 111.0
+margin_bottom = 108.0
+theme = SubResource( 16 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "asd"
 
 [node name="Intro" type="Label" parent="Head/Camera"]
-margin_left = 12.0
-margin_top = 794.0
-margin_right = 204.0
-margin_bottom = 894.0
+margin_left = 73.0
+margin_top = 811.0
+margin_right = 265.0
+margin_bottom = 911.0
 rect_scale = Vector2( 3, 3 )
 text = "Press E / Q to switch weapons"
+
+[node name="DeathScreen" type="ColorRect" parent="Head/Camera"]
+material = SubResource( 18 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.207843, 0, 0, 1 )
+
+[node name="DeathUIElements" type="Control" parent="Head/Camera/DeathScreen"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="RespawnButton" type="Button" parent="Head/Camera/DeathScreen/DeathUIElements"]
+anchor_top = 16.8
+anchor_bottom = 19.3
+margin_left = 101.0
+margin_top = -6.10352e-05
+margin_right = 401.0
+margin_bottom = -6.10352e-05
+theme = SubResource( 22 )
+disabled = true
+text = "Respawn"
+
+[node name="RespawnTimerText" type="Label" parent="Head/Camera/DeathScreen/DeathUIElements"]
+anchor_top = 16.8
+anchor_bottom = 19.3
+margin_left = 103.0
+margin_top = -76.0001
+margin_right = 403.0
+margin_bottom = -76.0001
+theme = SubResource( 22 )
+text = "Respawning in: "
+
+[node name="RespawnTimerNum" type="Label" parent="Head/Camera/DeathScreen/DeathUIElements"]
+anchor_top = 16.8
+anchor_bottom = 19.3
+margin_left = 482.0
+margin_top = -76.0001
+margin_right = 782.0
+margin_bottom = -76.0001
+theme = SubResource( 22 )
+text = "5"
+
+[node name="DeathLabel" type="Label" parent="Head/Camera/DeathScreen/DeathUIElements"]
+margin_left = 61.0
+margin_top = 75.0
+margin_right = 861.0
+margin_bottom = 275.0
+theme = SubResource( 24 )
+text = "You have died..."
 
 [node name="Weapons" type="Spatial" parent="Head"]
 
@@ -1008,6 +1187,7 @@ max_db = 0.903
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
+anims/death_screen = SubResource( 19 )
 anims/fire_ak = SubResource( 6 )
 anims/fire_dragunov = SubResource( 12 )
 anims/fire_dragunov_scoped = SubResource( 13 )
@@ -1017,6 +1197,7 @@ anims/out_pistol = SubResource( 5 )
 anims/reload_ak = SubResource( 7 )
 anims/reload_dragunov = SubResource( 14 )
 anims/reload_pistol = SubResource( 4 )
+anims/respawn = SubResource( 20 )
 anims/scope_dragunov = SubResource( 10 )
 anims/unscope_dragunov = SubResource( 11 )
 

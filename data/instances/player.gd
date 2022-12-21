@@ -6,28 +6,39 @@ extends KinematicBody
 export var speed = 20
 export var gravity = 2.18
 export var damage = 5
+export var team = 0
+export var respawn_location = Vector3(0, 10 ,0)
+export var _can_halfscope = false
 
 var velocity = Vector3.ZERO
 var mouse_sensitivity = 0.025
 var jump_strength = 50
 var jump_decay = 0.95
-var health = 100
+var walk_accel_base = 0.6
+var max_health = 100
 var current_weapon = 0
+var start_total_ammo = [100, 300, 30, 0]
 var ammo_holds = [12, 25, 6, 0]
 var weapon_damage = [8, 5, 20, 20]
 var weapon_movespeed = [1.1, 1, 0.8, 1.3]
-var walk_accel_base = 0.6
 var scoped_in = false
 
+var _health = max_health
 var _jump_amount = 0
 var _can_double_jump = false
 var _weapon_count = 4
 var _current_ammo = [12, 25, 6, 0]
-var _total_ammo = [100, 300, 30, 0]
+var _total_ammo = start_total_ammo
 
-export var _can_halfscope = false
-# modifier so that when you're standing still and start moving, slowly ramp into full speed
+# modifier: when standing still and start moving, slowly ramp into full speed
 var _walk_accel = walk_accel_base
+
+# death variables
+var dead = false
+var death_timer = 6
+var can_respawn = false
+var _death_timer_count = death_timer
+var invincible = false
 
 onready var raycast = $Head/Camera/RayCast
 onready var ammo_count = $Head/Camera/Ammo_Count
@@ -44,18 +55,47 @@ onready var current_ammo_sprite = [$Head/Camera/Ammo_Icon, $Head/Camera/Ammo_Ico
 
 # called every physics instance
 func _physics_process(delta):
+	### UI and general control functions
+	
 	# exit application when esc is pressed
 	if Input.is_action_pressed("ui_cancel"):
 		get_tree().quit()
 	
 	# update fps counter
-	fps_counter.set_text("FPS " + String(Engine.get_frames_per_second()))
+	fps_counter.set_text(String(Engine.get_frames_per_second()))
 	
+	# don't move if dead
+	if dead:
+		wait_for_respawn(delta)
+		return
+	
+	### movement and control logic
+	
+	# function handling all user input
+	user_input()
+	
+	# call the movement function
+	_move(delta)
+	
+	# check if out of bounds
+	if global_transform.origin.y <= -50:
+		take_damage(delta * 100)
+	
+	# die!
+	if _health <= 0:
+		die()
+
+# handle all keyboard/controller inputs
+func user_input():
 	# change weapon logic
 	if Input.is_action_just_pressed("change_weapon_down"):
 		_change_weapon("down")
 	elif Input.is_action_just_pressed("change_weapon_up"):
 		_change_weapon("up")
+		
+	# debug purpose only, remove later!
+	if Input.is_action_just_pressed("ui_focus_next"):
+		take_damage(20)
 	
 	# run scope in function if scoping in on appropriate weapon
 	if Input.is_action_just_pressed("scope_in") and current_weapon == 2:
@@ -73,9 +113,6 @@ func _physics_process(delta):
 	# check if reloading
 	if Input.is_action_pressed("reload"):
 		_reload()
-	
-	# call the movement function
-	_move(delta)
 
 # wasd movement controller
 func _move(delta):
@@ -174,7 +211,6 @@ func _fire():
 				$AnimationPlayer.play("fire_dragunov")
 		
 		# test if ray cast is colliding with an object 
-		raycast.cast_to = Vector3(0, 0, -1000)
 		if raycast.is_colliding():
 			var location = raycast.get_collision_point()
 			var target = raycast.get_collider()
@@ -250,8 +286,10 @@ func _reload_anim():
 
 # taking damage
 func take_damage(damage):
-	health -= damage
-	health_label.text = str(health)
+	if invincible:
+		return
+	_health -= damage
+	health_label.text = str(abs(round(_health)))
 
 # change weapon function
 func _change_weapon(direction):
@@ -274,7 +312,50 @@ func _change_weapon(direction):
 	current_weapon_sprite = weapon_list[current_weapon]
 	current_weapon_sprite.visible = true
 	
+	# set weapon range
+	if current_weapon != 4:
+		raycast.cast_to = Vector3(0, 0, -1000)
+	
 	_update_ammo_labels()
+
+# called when character dies, stops movement and sets death timer
+func die():
+	visible = false
+	
+	var screen_size = OS.get_window_size()
+	$Head/Camera/DeathScreen.material.set_shader_param("Screen Width", screen_size[0])
+	$Head/Camera/DeathScreen.material.set_shader_param("Screen Height", screen_size[1])
+	$AnimationPlayer.play("death_screen")
+	# when dead is true, character can no longer move
+	dead = true
+	_death_timer_count = death_timer
+
+# respawn logic
+func respawn():
+	visible = true
+	dead = false
+	can_respawn = false
+	_health = max_health
+	global_transform.origin = respawn_location
+	$AnimationPlayer.play("respawn")
+	
+	# restore ammo
+	_current_ammo = ammo_holds
+	_total_ammo = start_total_ammo
+	
+	# update health label
+	take_damage(0)
+
+# delay time before respawn
+func wait_for_respawn(delta):
+	_death_timer_count -= delta
+	$Head/Camera/DeathScreen/DeathUIElements/RespawnTimerNum.text = String(max(0, stepify(_death_timer_count, 0.1)))
+	if _death_timer_count < 0:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		can_respawn = true
+		$Head/Camera/DeathScreen/DeathUIElements/RespawnButton.disabled = false
+	if can_respawn and $Head/Camera/DeathScreen/DeathUIElements/RespawnButton.pressed:
+		respawn()
 
 # pickup other items
 func _on_Area_area_entered(area):
