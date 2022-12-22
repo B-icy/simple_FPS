@@ -133,7 +133,7 @@ margin_top = 81.0
 margin_right = 1633.0
 margin_bottom = 109.0
 theme = SubResource( 4 )
-text = "Lobby 2: Control all sites to win"
+text = "Lobby 3: Control all sites to win"
 
 [node name="Players3" type="Label" parent="Panel/GridContainer"]
 margin_left = 1683.0
@@ -157,7 +157,7 @@ margin_top = 121.0
 margin_right = 1633.0
 margin_bottom = 149.0
 theme = SubResource( 4 )
-text = "Lobby 2: Capture the flag"
+text = "Lobby 4: Capture the flag"
 
 [node name="Players4" type="Label" parent="Panel/GridContainer"]
 margin_left = 1683.0

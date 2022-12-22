@@ -11,7 +11,8 @@ config_version=4
 [application]
 
 config/name="simple_FPS"
-run/main_scene="res://data/maps/testmap3/MapThreeScene.tscn"
+config/description="Just a simple fps!"
+run/main_scene="res://screens/main_menu/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

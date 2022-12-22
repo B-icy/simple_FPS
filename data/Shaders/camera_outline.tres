@@ -1,0 +1,39 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+uniform vec4 edge_color : hint_color = vec4(0.4, 0.4,0.4,1);
+uniform vec2 resolution = vec2(800.0,600.0);
+
+void fragment(){
+    float width = resolution.x;
+    float height = resolution.y;
+	float w = 1.0 / width;
+	float h = 1.0 / height;
+
+	vec4 n0 = texture(SCREEN_TEXTURE, SCREEN_UV + vec2( -w, -h));
+	vec4 n1 = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, -h));
+	vec4 n2 = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(  w, -h));
+	vec4 n3 = texture(SCREEN_TEXTURE, SCREEN_UV + vec2( -w, 0.0));
+	vec4 n4 = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 n5 = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(  w, 0.0));
+	vec4 n6 = texture(SCREEN_TEXTURE, SCREEN_UV + vec2( -w, h));
+	vec4 n7 = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0, h));
+	vec4 n8 = texture(SCREEN_TEXTURE, SCREEN_UV + vec2(  w, h));
+
+
+
+	vec4 sobel_edge_h = n2 + (2.0*n5) + n8 - (n0 + (2.0*n3) + n6);
+  	vec4 sobel_edge_v = n0 + (2.0*n1) + n2 - (n6 + (2.0*n7) + n8);
+	vec4 sobel = sqrt((sobel_edge_h * sobel_edge_h) + (sobel_edge_v * sobel_edge_v));
+    float alpha = sobel.r;
+    alpha += sobel.g;
+    alpha +=  sobel.b;
+    alpha /= 3.0;
+	COLOR = vec4( edge_color.rgb, alpha );
+}"
+
+[resource]
+shader = SubResource( 2 )
+shader_param/edge_color = Color( 0, 0, 0, 1 )
+shader_param/resolution = Vector2( 2560, 1440 )

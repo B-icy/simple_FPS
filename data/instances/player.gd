@@ -17,18 +17,20 @@ var jump_decay = 0.95
 var walk_accel_base = 0.6
 var max_health = 100
 var current_weapon = 0
-var start_total_ammo = [100, 300, 30, 0]
-var ammo_holds = [12, 25, 6, 0]
+const start_total_ammo = [100, 300, 30, 0]
+const ammo_holds = [12, 25, 6, 0]
 var weapon_damage = [8, 5, 20, 20]
 var weapon_movespeed = [1.1, 1, 0.8, 1.3]
 var scoped_in = false
+var in_menu = false
 
 var _health = max_health
 var _jump_amount = 0
 var _can_double_jump = false
 var _weapon_count = 4
 var _current_ammo = [12, 25, 6, 0]
-var _total_ammo = start_total_ammo
+var _total_ammo = start_total_ammo.duplicate()
+var _menu_delay = .1
 
 # modifier: when standing still and start moving, slowly ramp into full speed
 var _walk_accel = walk_accel_base
@@ -49,17 +51,23 @@ onready var health_label = $Head/Camera/Health
 onready var weapon_list = [$Head/Weapons/Pistol, $Head/Weapons/AK47, $Head/Weapons/dragunov, $Head/Weapons/knife]
 onready var current_weapon_sprite = weapon_list[0]
 onready var current_ammo_sprite = [$Head/Camera/Ammo_Icon, $Head/Camera/Ammo_Icon_AK, $Head/Camera/Ammo_Icon_AK, $Head/Camera/Ammo_Icon_Knife]
+onready var menu = $Head/Camera/Menu
 
 ##########################################################
 # Functions
+
+# called once on load
+func _ready():
+	# reset raycast fire location
+	raycast.cast_to = Vector3(0, 0, -1000)
 
 # called every physics instance
 func _physics_process(delta):
 	### UI and general control functions
 	
 	# exit application when esc is pressed
-	if Input.is_action_pressed("ui_cancel"):
-		get_tree().quit()
+	if Input.is_action_just_pressed("ui_cancel"):
+		open_menu()
 	
 	# update fps counter
 	fps_counter.set_text(String(Engine.get_frames_per_second()))
@@ -67,6 +75,11 @@ func _physics_process(delta):
 	# don't move if dead
 	if dead:
 		wait_for_respawn(delta)
+		return
+	
+	# disable movement if in menu
+	if in_menu:
+		menu_refresh(delta)
 		return
 	
 	### movement and control logic
@@ -113,6 +126,26 @@ func user_input():
 	# check if reloading
 	if Input.is_action_pressed("reload"):
 		_reload()
+
+# open menu
+func open_menu():
+	if not menu.visible:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		in_menu = true
+		menu.visible = true
+		_menu_delay = .1
+
+# called each frame when menu is open
+func menu_refresh(delta):
+	_menu_delay -= delta
+	if $Head/Camera/Menu/ContinueButton.pressed or (Input.is_action_just_pressed("ui_cancel") and _menu_delay < 0):
+		in_menu = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		menu.visible = false
+	if $Head/Camera/Menu/MainMenuButton.pressed:
+		get_tree().change_scene("res://screens/main_menu/MainMenu.tscn")
+	if $Head/Camera/Menu/ExitButton.pressed:
+		get_tree().quit()
 
 # wasd movement controller
 func _move(delta):
@@ -267,6 +300,9 @@ func _update_ammo_labels():
 
 # reload logic
 func _reload():
+	print(_current_ammo[current_weapon])
+	print(ammo_holds[current_weapon])
+	print("-----------------")
 	# check if already doing another animation and if current ammo doesnt equal max ammo
 	if $AnimationPlayer.current_animation == "" and _current_ammo[current_weapon] != ammo_holds[current_weapon]:
 		if current_weapon == 0:
@@ -340,8 +376,9 @@ func respawn():
 	$AnimationPlayer.play("respawn")
 	
 	# restore ammo
-	_current_ammo = ammo_holds
-	_total_ammo = start_total_ammo
+	_current_ammo = ammo_holds.duplicate()
+	_total_ammo = start_total_ammo.duplicate()
+	_update_ammo_labels()
 	
 	# update health label
 	take_damage(0)

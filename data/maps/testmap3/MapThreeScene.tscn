@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://data/maps/testmap3/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/instances/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/instances/enemies/scripts/demo_respawn.gd" type="Script" id=3]
+[ext_resource path="res://data/models/usable/Meat_01.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ProceduralSky" id=1]
 radiance_size = 0
@@ -54,6 +55,9 @@ respawn_location = Vector3( -74, 8, 0 )
 
 [node name="Spawn1" type="Spatial" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 75, 8, 0 )
+
+[node name="Meat_01" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.563824, -0.0669417, 0.823178, 0.0732233, 0.996836, 0.0309106, -0.822643, 0.0428476, 0.566942, 61, 20.6, 30.2 )
 
 [node name="enemies" type="Node" parent="."]
 script = ExtResource( 3 )

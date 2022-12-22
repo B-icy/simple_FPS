@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://data/instances/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/models/usable/SM_Army_Pistol.tscn" type="PackedScene" id=2]
@@ -23,9 +23,37 @@
 [ext_resource path="res://data/sfx/gunshots/dragunov/dragunov_shot.wav" type="AudioStream" id=21]
 [ext_resource path="res://data/fonts/Kenney Bold.ttf" type="DynamicFontData" id=22]
 [ext_resource path="res://data/fonts/Kenney Future.ttf" type="DynamicFontData" id=23]
+[ext_resource path="res://data/fonts/Kenney Future Narrow.ttf" type="DynamicFontData" id=24]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 2.22697
+
+[sub_resource type="DynamicFont" id=29]
+size = 48
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 24 )
+
+[sub_resource type="Theme" id=30]
+default_font = SubResource( 29 )
+
+[sub_resource type="DynamicFont" id=31]
+size = 48
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 24 )
+
+[sub_resource type="Theme" id=32]
+default_font = SubResource( 31 )
+
+[sub_resource type="DynamicFont" id=27]
+size = 64
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 24 )
+
+[sub_resource type="Theme" id=28]
+default_font = SubResource( 27 )
 
 [sub_resource type="DynamicFont" id=15]
 outline_size = 1
@@ -33,6 +61,13 @@ font_data = ExtResource( 22 )
 
 [sub_resource type="Theme" id=16]
 default_font = SubResource( 15 )
+
+[sub_resource type="DynamicFont" id=25]
+size = 48
+font_data = ExtResource( 24 )
+
+[sub_resource type="Theme" id=26]
+default_font = SubResource( 25 )
 
 [sub_resource type="Shader" id=17]
 code = "shader_type canvas_item;
@@ -470,7 +505,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 30.0 ]
+"values": [ 10.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Head/Weapons/dragunov:translation")
@@ -876,7 +911,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 70.0, 30.0 ]
+"values": [ 70.0, 10.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Head/Weapons/dragunov:translation")
@@ -982,10 +1017,10 @@ collision_mask = 2
 [node name="Ammo_Icon" type="TextureRect" parent="Head/Camera"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = -2.0
-margin_top = -76.0
-margin_right = 798.0
-margin_bottom = 724.0
+margin_left = 15.0
+margin_top = -172.0
+margin_right = 815.0
+margin_bottom = 628.0
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 4 )
 stretch_mode = 1
@@ -994,9 +1029,10 @@ stretch_mode = 1
 visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -83.9999
-margin_right = 800.0
-margin_bottom = 716.0
+margin_left = 13.0
+margin_top = -186.0
+margin_right = 813.0
+margin_bottom = 614.0
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 14 )
 stretch_mode = 1
@@ -1005,10 +1041,10 @@ stretch_mode = 1
 visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = -86.0
-margin_right = 803.0
-margin_bottom = 714.0
+margin_left = 15.0
+margin_top = -184.0
+margin_right = 815.0
+margin_bottom = 616.0
 rect_scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 16 )
 stretch_mode = 1
@@ -1016,11 +1052,11 @@ stretch_mode = 1
 [node name="Ammo_Count" type="Label" parent="Head/Camera"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = -18.0
-margin_top = -58.0
-margin_right = 28.0
-margin_bottom = -41.0
-rect_scale = Vector2( 3, 3 )
+margin_left = 41.0
+margin_top = -154.0
+margin_right = 179.0
+margin_bottom = -100.0
+theme = SubResource( 30 )
 custom_colors/font_color = Color( 0.807843, 0.796078, 0.0980392, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -1030,11 +1066,11 @@ align = 2
 [node name="TotalAmmo" type="Label" parent="Head/Camera"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 131.0
-margin_top = -58.0
-margin_right = 177.0
-margin_bottom = -41.0
-rect_scale = Vector2( 3, 3 )
+margin_left = 190.0
+margin_top = -154.0
+margin_right = 328.0
+margin_bottom = -100.0
+theme = SubResource( 32 )
 custom_colors/font_color = Color( 0.807843, 0.796078, 0.0980392, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -1043,11 +1079,11 @@ text = "/ 100"
 [node name="Health" type="Label" parent="Head/Camera"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 16.0
-margin_top = -187.0
-margin_right = 62.0
-margin_bottom = -170.0
-rect_scale = Vector2( 4, 4 )
+margin_left = 24.0
+margin_top = -86.0
+margin_right = 208.0
+margin_bottom = -14.0
+theme = SubResource( 28 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -1063,12 +1099,14 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "asd"
 
 [node name="Intro" type="Label" parent="Head/Camera"]
-margin_left = 73.0
-margin_top = 811.0
-margin_right = 265.0
-margin_bottom = 911.0
-rect_scale = Vector2( 3, 3 )
-text = "Press E / Q to switch weapons"
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -150.0
+margin_right = 824.0
+margin_bottom = 150.0
+theme = SubResource( 26 )
+text = "Press E / Q to switch weapons
+Press esc to open the menu"
 
 [node name="DeathScreen" type="ColorRect" parent="Head/Camera"]
 material = SubResource( 18 )
@@ -1119,6 +1157,60 @@ margin_right = 861.0
 margin_bottom = 275.0
 theme = SubResource( 24 )
 text = "You have died..."
+
+[node name="Menu" type="ColorRect" parent="Head/Camera"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.466667, 0.466667, 0.466667, 1 )
+
+[node name="DeathLabel" type="Label" parent="Head/Camera/Menu"]
+margin_left = 61.0
+margin_top = 75.0
+margin_right = 861.0
+margin_bottom = 275.0
+theme = SubResource( 24 )
+text = "Menu"
+
+[node name="ContinueButton" type="Button" parent="Head/Camera/Menu"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 57.0
+margin_top = -47.0
+margin_right = 557.0
+margin_bottom = 53.0
+theme = SubResource( 22 )
+text = "Continue"
+
+[node name="SettingsButton" type="Button" parent="Head/Camera/Menu"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 57.0
+margin_top = 64.0
+margin_right = 557.0
+margin_bottom = 164.0
+theme = SubResource( 22 )
+text = "Settings"
+
+[node name="MainMenuButton" type="Button" parent="Head/Camera/Menu"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 57.0
+margin_top = 175.0
+margin_right = 557.0
+margin_bottom = 275.0
+theme = SubResource( 22 )
+text = "Main Menu"
+
+[node name="ExitButton" type="Button" parent="Head/Camera/Menu"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 57.0
+margin_top = 290.0
+margin_right = 557.0
+margin_bottom = 390.0
+theme = SubResource( 22 )
+text = "Exit to Desktop"
 
 [node name="Weapons" type="Spatial" parent="Head"]
 

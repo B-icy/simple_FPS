@@ -1,9 +1,3 @@
-1) adjust movement (diff speed while holding diff weapons)
-1.5) knife! move faster while holding?
-2) scope in?
-3) sniper?
-
-
 GET MULTIPLAYER GOING!!
 
 
