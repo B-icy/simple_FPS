@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://SmokeFrob.tres" type="Material" id=1]
+[ext_resource path="res://SmokeFromSmokeBomb.gd" type="Script" id=2]
+[ext_resource path="res://newestsmoke2_texture3.png" type="Texture" id=3]
+
+[sub_resource type="SphereMesh" id=6]
+material = ExtResource( 1 )
+radius = 10.0
+height = 10.0
+
+[sub_resource type="ParticlesMaterial" id=7]
+render_priority = 4
+emission_shape = 1
+emission_sphere_radius = 0.2
+gravity = Vector3( 0, 2, 0 )
+radial_accel = 1.1
+radial_accel_random = 1.0
+tangential_accel = 12.98
+tangential_accel_random = 0.46
+damping = 10.0
+damping_random = 1.0
+scale = 1.5
+anim_speed = 2.0
+
+[sub_resource type="SpatialMaterial" id=8]
+flags_transparent = true
+params_billboard_mode = 3
+params_billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="QuadMesh" id=9]
+material = SubResource( 8 )
+
+[sub_resource type="SphereShape" id=10]
+radius = 1.6
+
+[node name="SmokeFromSmokeBomb" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="SmokeMesh" type="CSGMesh" parent="."]
+transform = Transform( 0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0 )
+mesh = SubResource( 6 )
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70112, 0 )
+visible = false
+amount = 7
+lifetime = 1.25
+speed_scale = 0.1
+explosiveness = 0.5
+visibility_aabb = AABB( -4, -2.28564, -4, 8, 8, 8 )
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 9 )
+
+[node name="SmokeFromSmokeBomb" type="StaticBody" parent="."]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="SmokeFromSmokeBomb"]
+shape = SubResource( 10 )
+disabled = true

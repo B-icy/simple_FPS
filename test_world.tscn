@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://data/instances/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/instances/enemies/SM_Workbench.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/maps/peepeemap/penisbunker.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SmokeBomb.tscn" type="PackedScene" id=4]
 [ext_resource path="res://data/models/usable/SM_Barrel_Open_01.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/instances/Mirror.tscn" type="PackedScene" id=7]
 [ext_resource path="res://data/instances/enemies/scripts/demo_respawn.gd" type="Script" id=8]
@@ -37,3 +38,6 @@ visible = false
 
 [node name="AKAmmo" parent="objects" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.20485, 0.804924, -18.4579 )
+
+[node name="SmokeBomb" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46.7992, 3.53698, -18.0321 )

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://data/maps/testmap3/Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/instances/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/instances/enemies/scripts/demo_respawn.gd" type="Script" id=3]
 [ext_resource path="res://data/models/usable/Meat_01.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Water.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ProceduralSky" id=1]
 radiance_size = 0
@@ -61,3 +62,6 @@ transform = Transform( 0.563824, -0.0669417, 0.823178, 0.0732233, 0.996836, 0.03
 
 [node name="enemies" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[node name="Water" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 5, 0, 0, 0, 1, 7.08549, -7.04643, 9.96731 )
